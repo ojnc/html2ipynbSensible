@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="en-US">
+<![endif]-->
+
+<!--[if gte IE 9]>
+<html class="ie" lang="en-US">
+<![endif]-->
+
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en-US">
+<!--<![endif]-->
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar" content="black"/>
+    <title>Hands-On Tutorial: Automated Predictive (APL) in SAP HANA Cloud | SAP Blogs</title>
+    <link rel="profile" href="http://gmpg.org/xfn/11"/>
+
+    
+    
+    <!--[if lt IE 9]>
+    <script src="https://blogs.sap.com/wp-content/themes/sap-v3-neo/js/html5.min.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <script type="module" src="https://static.community.services.sap/com-hdr/v10/282.116.60/shared-ui/1dx-assets/js/cxs-designsystem/cxs-designsystem.esm.js"></script><link rel="icon" type="image"  href="https://static.community.services.sap/com-hdr/v10/282.116.60/shared-ui/1dx-assets/images/favicon.png" /><link rel="shortcut icon" type="image/x-icon"  href="https://static.community.services.sap/com-hdr/v10/282.116.60/shared-ui/1dx-assets/images/favicon.ico" /><link rel="apple-touch-icon" href="https://static.community.services.sap/com-hdr/v10/282.116.60/shared-ui/1dx-assets/images/apple-touch-icon.png" /><meta name='robots' content='max-image-preview:large' />
+    <script type="text/javascript">
+        window.adobeDataLayer = window.adobeDataLayer || [];
+    </script>
+    <link rel='dns-prefetch' href='//static.community.services.sap' />
+<link rel='dns-prefetch' href='//assets.adobedtm.com' />
+<link rel="alternate" type="application/rss+xml" title="SAP Blogs &raquo; Feed" href="https://blogs.sap.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="SAP Blogs &raquo; Comments Feed" href="https://blogs.sap.com/comments/feed/" />
+<meta name="type" content="Blog" /><meta name="description" content="SAP HANA Cloud now includes the Automated Predictive Library (APL). Find out how to train ML models within SAP HANA Cloud automatically, without having to extract the data. Use the familiar SAP HANA Python" /><meta name="sm_tech_ids" content="73555000100800000084,240174591523510321507492941674121,73555000100800000791,73554900100700000996,73554900100800002881"/><meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" /><link rel="alternate" type="application/rss+xml" title="SAP Blogs &raquo; Hands-On Tutorial: Automated Predictive (APL) in SAP HANA Cloud Comments Feed" href="https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/feed/" />
+<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/blogs.sap.com\/res1dx-598\/wp-includes\/js\/wp-emoji-release.min.js"}};
+/*! This file is auto-generated */
+!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){p.clearRect(0,0,i.width,i.height),p.fillText(e,0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(t,0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(p&&p.fillText)switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s("\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!s("\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!s("\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!s("\ud83e\udef1\ud83c\udffb\u200d\ud83e\udef2\ud83c\udfff","\ud83e\udef1\ud83c\udffb\u200b\ud83e\udef2\ud83c\udfff")}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(e=t.source||{}).concatemoji?c(e.concatemoji):e.wpemoji&&e.twemoji&&(c(e.twemoji),c(e.wpemoji)))}(window,document,window._wpemojiSettings);
+</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='twentytwelve-style-css' href='https://blogs.sap.com/res1dx-598/wp-content/themes/sap-v3-neo/style.min.css' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentytwelve-ie-css' href='https://blogs.sap.com/res1dx-598/wp-content/themes/sap-v3-neo/css/ie.css' type='text/css' media='all' />
+<![endif]-->
+<link rel='stylesheet' id='designmate_styles-css' href='https://static.community.services.sap/designmate/v3/241/latest/designmate.css' type='text/css' media='all' />
+<link rel='stylesheet' id='designsystem_styles-css' href='https://static.community.services.sap/community-ds/v1/381/main.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-css' href='https://blogs.sap.com/res1dx-598/wp-includes/css/dist/block-library/style.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='classic-theme-styles-css' href='https://blogs.sap.com/res1dx-598/wp-includes/css/classic-themes.min.css' type='text/css' media='all' />
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='prism-css' href='https://blogs.sap.com/res1dx-598/wp-includes/js/tinymce/plugins/codesample/css/prism.css' type='text/css' media='all' />
+<link rel='stylesheet' id='sap_custom_link_css-css' href='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-core-custom//include/css/sap-core-custom.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='sap_lightbox_gallery_css-css' href='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-lightbox-gallery/lib/lightbox-gallery.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='pt_style_css-css' href='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-primary-tag/css/pt_style.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wordpress-popular-posts-css-css' href='https://blogs.sap.com/res1dx-598/wp-content/plugins/wordpress-popular-posts/assets/css/wpp.css' type='text/css' media='all' />
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-includes/js/jquery/jquery.min.js' id='jquery-core-js'></script>
+<script type='text/javascript' id='jquery-core-js-after'>
+if (jQuery !== undefined) {
+                jQuery(window).on("load", function(){
+                    var _wpWindowLoaded = document.createElement("div");
+                    _wpWindowLoaded.setAttribute("class", "hidden");
+                    _wpWindowLoaded.setAttribute("id", "wp_window_loaded");
+                    document.body.appendChild(_wpWindowLoaded);
+                });
+            }
+</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-includes/js/jquery/jquery-migrate.min.js' id='jquery-migrate-js'></script>
+<script type='text/javascript' src='//assets.adobedtm.com/ccc66c06b30b/d266848b2882/launch-f095fbc32a96.min.js' id='scn_adobe_dtm-js'></script>
+<script type='application/json' id='wpp-json'>
+{"sampling_active":0,"sampling_rate":100,"ajax_url":"https:\/\/blogs.sap.com\/wp-json\/wordpress-popular-posts\/v1\/popular-posts","api_url":"https:\/\/blogs.sap.com\/wp-json\/wordpress-popular-posts","ID":1113330,"token":"4a88358a6f","lang":0,"debug":0}
+</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/wordpress-popular-posts/assets/js/wpp.min.js' id='wpp-js-js'></script>
+<link rel="https://api.w.org/" href="https://blogs.sap.com/wp-json/" /><link rel="alternate" type="application/json" href="https://blogs.sap.com/wp-json/wp/v2/posts/1113330" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://blogs.sap.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://blogs.sap.com/wp-includes/wlwmanifest.xml" />
+
+<link rel="canonical" href="https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/" />
+<link rel='shortlink' href='https://blogs.sap.com/?p=1113330' />
+<script type="text/javascript">var ajaxurl = "https://blogs.sap.com/wp-admin/admin-ajax.php";var likePostLabel = "Like";var unLikePostLabel = "Liked";var likeCommentLabel = "Like";var unLikeCommentLabel = "Liked";</script>            <style id="wpp-loading-animation-styles">@-webkit-keyframes bgslide{from{background-position-x:0}to{background-position-x:-200%}}@keyframes bgslide{from{background-position-x:0}to{background-position-x:-200%}}.wpp-widget-placeholder,.wpp-widget-block-placeholder{margin:0 auto;width:60px;height:3px;background:#dd3737;background:linear-gradient(90deg,#dd3737 0%,#571313 10%,#dd3737 100%);background-size:200% auto;border-radius:3px;-webkit-animation:bgslide 1s infinite linear;animation:bgslide 1s infinite linear}</style>
+                <!--[if IE ]>
+    <link rel="stylesheet" id="scn-ie-styles" href="https://blogs.sap.com/wp-content/themes/sap-v3-neo/css/ie.css"
+          type="text/css" media="all">
+    <link id="ids-popup-css" href="https://accounts.sap.com/universalui/shared/stylesheets/idsPopup.css"
+          rel="stylesheet"
+          type="text/css">
+    <![endif]-->
+
+
+</head>
+
+<body class="post-template-default single single-post postid-1113330 single-format-standard">
+
+
+<div class="page-wrapper">
+<b class="cn-accessibility"><a href="#main" tabindex="0" accesskey="S">Skip to Content</a></b>
+<div id="page" class="hfeed site">
+
+<header id="masthead" class="blogs-nav sap-header">
+    
+  <div class="ds-community-header">
+    <ds-contextual-navigation
+      main-links='[{"title":"Topics","url":"https://community.sap.com/topics","subMenuRows":[]},{"title":"Groups","url":"https://groups.community.sap.com","subMenuRows":[{"subMenuLinkItems":[{"category":"","url":"","items":[{"title":"All Groups","url":"https://groups.community.sap.com/","externalLink":true},{"title":"Locations","url":"https://groups.community.sap.com/t5/location/ct-p/location","externalLink":true},{"title":"Interests","url":"https://groups.community.sap.com/t5/interests/ct-p/interests","externalLink":true},{"title":"Activities","url":"https://groups.community.sap.com/t5/activities/ct-p/activities","externalLink":true},{"title":"Influence and Feedback Groups","url":" https://groups.community.sap.com/t5/influence-and-feedback-groups/ct-p/influence-feedback","externalLink":true}],"displayItemsAsCategoryLink":false}]}]},{"title":"Answers","url":"https://answers.sap.com","subMenuRows":[{"subMenuLinkItems":[{"category":"","url":"","items":[{"title":"All Questions","url":"https://answers.sap.com","externalLink":false},{"title":"Ask a Question","url":"https://answers.sap.com/questions/ask.html","externalLink":false},{"title":"How to Ask a Question","url":"https://developers.sap.com/tutorials/community-qa.html","externalLink":true},{"title":"Using Tags","url":"https://community.sap.com/resources/using-tags","externalLink":false},{"title":"All Tags","url":"https://answers.sap.com/tags.html","externalLink":false}],"displayItemsAsCategoryLink":false}]}]},{"title":"Blogs","url":"https://blogs.sap.com","subMenuRows":[{"subMenuLinkItems":[{"category":"","url":"","items":[{"title":"All Blog Posts","url":"https://blogs.sap.com","externalLink":false},{"title":"Write a Blog Post","url":"https://blogs.sap.com/wp-admin/post-new.php","externalLink":false},{"title":"How to Write a Blog Post","url":"https://community.sap.com/resources/blogging","externalLink":false},{"title":"Using Tags","url":"https://community.sap.com/resources/using-tags","externalLink":false},{"title":"Using Categories","url":"https://community.sap.com/resources/blogging#Using_categories","externalLink":false},{"title":"All Tags","url":"https://blogs.sap.com/tags/","externalLink":false}],"displayItemsAsCategoryLink":false}]}]},{"title":"Events","url":"","subMenuRows":[{"subMenuLinkItems":[{"category":"","url":"","items":[{"title":"All Events","url":"https://groups.community.sap.com/t5/events/ct-p/events","externalLink":true},{"title":"SAP Community","url":"https://groups.community.sap.com/t5/sap-community/eb-p/community-events","externalLink":true},{"title":"SAP CodeJam","url":"https://groups.community.sap.com/t5/sap-codejam/eb-p/codejam-events","externalLink":true},{"title":"SAP Community Calls","url":"https://groups.community.sap.com/t5/sap-community-calls/eb-p/community-calls","externalLink":true},{"title":"SAP Inside Track","url":"https://groups.community.sap.com/t5/sap-insidetrack/eb-p/insidetrack","externalLink":true},{"title":"SAP Stammtisch","url":"https://groups.community.sap.com/t5/sap-stammtisch/eb-p/stammtisch","externalLink":true},{"title":"SAP SuccessFactors","url":"https://groups.community.sap.com/t5/sap-successfactors/eb-p/successfactorsevents","externalLink":true},{"title":"User Groups","url":"https://groups.community.sap.com/t5/user-groups/eb-p/user-groups","externalLink":true}],"displayItemsAsCategoryLink":false}]}]},{"title":"Programs","url":"https://community.sap.com/programs","subMenuRows":[{"subMenuLinkItems":[{"category":"","url":"","items":[{"title":"Influencers","url":"https://community.sap.com/programs/influencer-programs","externalLink":false},{"title":"Spotlight Interviews","url":"https://community.sap.com/programs/spotlight-interviews","externalLink":false},{"title":"All Programs","url":"https://community.sap.com/programs","externalLink":false}],"displayItemsAsCategoryLink":false}]}]},{"title":"Resources","url":"https://community.sap.com/resources","subMenuRows":[{"subMenuLinkItems":[{"category":"","url":"","items":[{"title":"Getting Started","url":"https://developers.sap.com/tutorials/community-2022.html","externalLink":true},{"title":"Community Tutorials","url":"https://community.sap.com/resources/tutorials","externalLink":false},{"title":"Community Videos","url":"https://community.sap.com/resources/tip-in-a-minute#Videos","externalLink":false},{"title":"Community Voice Newsletter","url":"https://community.sap.com/voice-nl","externalLink":false},{"title":"Reputation","url":"https://community.sap.com/resources/reputation","externalLink":false},{"title":"Missions & Badges","url":"https://community.sap.com/resources/missions-badges","externalLink":false},{"title":"Moderation","url":"https://community.sap.com/resources/moderation","externalLink":false},{"title":"Rules of Engagement","url":"https://community.sap.com/resources/rules-of-engagement","externalLink":false},{"title":"All Resources","url":"https://community.sap.com/resources","externalLink":false}],"displayItemsAsCategoryLink":false}]}]},{"title":"What&apos;s New","url":"https://community.sap.com/resources/what-is-new","subMenuRows":[]}]'
+      explore-sap-link='{"title":"Explore SAP","subMenuRows":[{"subMenuLinkItems":[{"category":"Products","url":"https://www.sap.com/products.html","items":[{"title":"Business Network","url":"https://www.sap.com/products/business-network.html"},{"title":"Business Technology Platform","url":"https://www.sap.com/products/technology-platform.html"},{"title":"CRM and Customer Experience","url":"https://www.sap.com/products/crm.html"},{"title":"Enterprise Resource Planning","url":"https://www.sap.com/products/erp.html"},{"title":"Financial Management","url":"https://www.sap.com/products/financial-management.html"},{"title":"Human Capital Management","url":"https://www.sap.com/products/hcm.html"},{"title":"Small and Midsize Enterprises","url":"https://www.sap.com/products/sme-business-software.html"},{"title":"Spend Management","url":"https://www.sap.com/products/spend-management.html"},{"title":"Supply Chain Management","url":"https://www.sap.com/products/scm.html"},{"title":"Sustainability Management","url":"https://www.sap.com/sustainability.html"},{"title":"-","url":""},{"title":"View products A-Z","url":"https://www.sap.com/products/a-z.html"},{"title":"View Industries","url":"https://www.sap.com/industries.html"},{"title":"Trials and Demos","url":"https://www.sap.com/products/free-trials.html"},{"title":"-","url":""},{"title":"Partners","url":"https://www.sap.com/partners.html"},{"title":"-","url":""},{"title":"Services","url":"https://www.sap.com/services-support.html"}],"displayItemsAsCategoryLink":false},{"category":"Learning and Support","url":"","items":[{"title":"Learning and Certification","url":"https://learning.sap.com"},{"title":"Support","url":"https://support.sap.com"},{"title":"Documentation","url":"https://help.sap.com"},{"title":"Community","url":"https://community.sap.com/"}],"displayItemsAsCategoryLink":false},{"category":"About","url":"","items":[{"title":"Company Information","url":"https://www.sap.com/about/company.html"},{"title":"Careers","url":"https://jobs.sap.com/?utm_source=CareerSite&utm_campaign=CorpSite_HD"},{"title":"Customer Stories","url":"https://www.sap.com/about/customer-stories.html"},{"title":"Events","url":"https://www.sap.com/events.html"},{"title":"Investor Relations","url":"https://www.sap.com/investors/en.html"},{"title":"News Center","url":"https://news.sap.com/"},{"title":"Security and Trust","url":"https://www.sap.com/about/trust-center.html"}],"displayItemsAsCategoryLink":false}]}],"displayTitle":"Explore all areas of SAP"}'
+      landing-zone='{"title":"Community","url":"https://community.sap.com/"}'
+      profile='{"accountManagementUrl":"https://people.sap.com","links":[{"title":"Ask a Question","url":"https://answers.sap.com/questions/ask.html"},{"title":"Write a Blog Post","url":"https://blogs.sap.com/wp-admin/post-new.php"},{"title":"Activity Stream","url":"https://activities.sap.com"},{"title":"Send a Message","url":"https://messages.sap.com"},{"title":"Inbox","url":"https://people.sap.com/inbox"}]}'
+      search-config='{"disabled":false,"url":"https://community.sap.com/search/","placeholder":"Search the SAP Community","inputName":"q","queryParameters":{"ct":"all","searchReferrer":"contextual_navigation_development"}}'
+      on-country-selected='country => alert(country)'
+      country-selector-config='{"enabled":false,"searchDisabled":false,"regions":[]}'
+      hide-explore-sap-link='false'
+      avatar-source-url='https://avatars.services.sap.com/images'
+    ></ds-contextual-navigation>
+  </div><div class="announcements" role="menubar"><script type="text/javascript">function readAnnouncementCookie(n){const e=new RegExp("(?:(?:^|.*;\\s*)"+n+"\\s*\\=\\s*([^;]*).*$)|^.*$"),t=document.cookie.replace(e,"$1");if(t)try{var o=JSON.parse(decodeURIComponent(t))}catch(n){console.error(n)}return o}function initAnnouncement(n){const e={typeId:n.typeId,version:parseInt(n.version),startDate:new Date(n.startDate),endDate:new Date(n.endDate),containerId:n.containerId},t=new Date;if(t>=e.startDate&&t<e.endDate){const n="sap_comm_global_announcements",o=readAnnouncementCookie(n),a=e.typeId+"-"+e.version;if(!o||!o[a]||!o[a].closed){const o=document.getElementById(e.containerId);o.classList.remove("ds-global-announcement--hidden"),o.querySelector("span.ds-global-announcement__close-button").onclick=function(){o.classList.add("ds-global-announcement--hidden"),e.closed=!0;const c={};c[a]=e;const s=readAnnouncementCookie(n);if(s)for(var d in s)a!=d&&new Date(s[d].endDate)>=t&&(c[d]=s[d]);const i=new Date;i.setMonth(i.getMonth()+12);const r=document.location.hostname,m=r.lastIndexOf(".sap.com")==r.length-".sap.com".length?".sap.com":document.location.hostname;document.cookie=n+"="+JSON.stringify(c)+";expires="+i+";domain="+m+";path=/"}}}}</script><div class="ds-content-wrapper ds-global-announcement-wrapper"><div class="ds-flexGrid"><div class="ds-global-announcement ds-global-announcement--hidden" id="global-announcement"><div class="ds-flexGrid ds-global-announcement__content-wrapper"><div class="ds-flexRow ds-global-announcement__content-row"><div class="ds-global-announcement__icon-wrapper"><i class="ds-icon--exclamation-circle ds-global-announcement__icon"></i></div><div class="ds-global-announcement__details-wrapper ds-flexCol"><div class="ds-global-announcement__details"><div class="ds-global-announcement__title-wrapper"><span class="ds-global-announcement__title">SAP Community Log-in Update</span></div><div class="ds-global-announcement__description">In a few months, SAP Community will switch to SAP Universal ID as the only option to login. Don’t wait, create your SAP Universal ID now! If you have multiple S- or P- accounts, use the Consolidation Tool to merge your content.</div></div><a class="ds-button ds-button--primary ds-global-announcement__readmore" href="https://community.sap.com/resources/universal-id-faq" title="Get started with SAP Universal ID" target="_blank">Get started with SAP Universal ID</a></div></div></div><span class="ds-global-announcement__close-button" role="button" tabindex="0" aria-label="Click to close announcement"><i class="ds-icon--big ds-icon--close ds-global-announcement__close-icon"></i></span></div></div></div><script type="text/javascript">initAnnouncement({
+            typeId: 'global-announcement',
+            containerId: 'global-announcement',
+            version: 99,
+            startDate: '2023-07-26T15:19:04.000Z',
+            endDate: '2023-09-01T05:00:09.000Z'
+        });</script></div><div class="dm-wrapper dm-subheader dm-subheader--wrapper  dm-user--unauthenticated "><div class="dm-grid"><div class="dm-breadcrumb dm-user--unauthenticated" role="menubar">
+    <ul class="dm-breadcrumb-nav" role="navigation" aria-label="breadcrumb navigation to trace the path back to original landing point">
+        
+        <li><a id="comm-shdr-breadcrumb-home" href="https://www-qa.sap.com" title="Home">Home</a></li>
+        
+        <li><a id="comm-shdr-breadcrumb-community" href="https://community-qa.sap.com" title="Community">Community</a></li>
+        
+    </ul>
+    <ul class="dm-breadcrumb-actions" role="menu">
+        
+        <li><a id="comm-shdr-AskQuestion" href="https://answers-qa.sap.com/questions/ask.html" title="Ask a Question">Ask a Question</a></li>
+        
+        <li><a id="comm-shdr-WriteBlogPost" href="https://blogs-qa.sap.com/wp-admin/post-new.php" title="Write a Blog Post">Write a Blog Post</a></li>
+        
+        <li class="dm-user__login-button--wrapper"><a class="dm-button-small dm-button--primary" role="button" rel="IDS_login" aria-label="Login or Sign up. Click here to log in or sign up"><span class="dm-button-text">Login / Sign-up</span></a></li>
+        <li class="dm-breadcrumb-actions__dropdown">
+            <span id="comm-shdr-actions-opener" class="dm-breadcrumb-actions__dropdown-toggle" title="Community actions">
+                 <span class="dm-icon-encoded dm-icon-encoded--3dots"></span>
+            </span>
+            <ul id="comm-shdr-user-actions-ul" class="dm-breadcrumb-actions__dropdown-menu" role="menu">
+            </ul>
+        </li>
+    </ul>
+</div>
+</div></div>    <!-- #site-navigation -->
+
+</header>
+
+<!-- #masthead -->
+<div id="main" tabindex="0" class="wrapper">
+
+
+
+
+<div class="ds-blog-post-detail">
+<div class="ds-flexGrid">
+  <div class="ds-flexRow">
+    <div class="ds-flexCol">
+            <div class="ds-content-wrapper ds-blog-post__content-wrapper">
+        <h6 class="ds-heading ds-heading--xs ds-blog-post__sub-title"><span>Technical Articles</span></h6>
+        <div class="ds-flexRow">
+          <div class="ds-flexCol-sm-12 ds-flexCol-md-9">
+            
+<div class="ds-blog-post__body-wrapper">
+  <div class="ds-blog-post__content">
+    <div class="ds-blog-post__header-wrapper">
+      <a target="_blank" rel="noopener noreferrer" href="https://people.sap.com/andreas.forster" class="ds-blog-post__avatar "  >
+        <img alt='Author&#039;s profile photo Andreas Forster' src='https://avatars.services.sap.com/images/andreas.forster.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />      </a>
+      <div class="ds-blog-post__author-info-wrapper">
+        <div class="ds-user ds-blog-post__author">
+          <a class="ds-link ds-user__name " href="https://people.sap.com/andreas.forster" target="_blank" title="Andreas Forster" aria-label="" rel="noopener noreferrer">Andreas Forster</a>
+          <div class="ds-user__roles"><i class="ds-user__role ds-user__role--employee" title="This user is an SAP Employee" data-role-name="SAP Employee"></i></div>        </div>
+        <div class="ds-blog-post__meta-info">
+          <span class="ds-blog-post__date">July 27, 2020</span>
+          <span class="ds-blog-post__read-duration">21 minute read</span>
+        </div>
+      </div>
+    </div>
+    <h1 class="ds-heading ds-heading--m ds-blog-post__title">Hands-On Tutorial: Automated Predictive (APL) in SAP HANA Cloud</h1>
+    <div class="ds-blog-post__social-stats-wrapper">
+      <div class="ds-social-stats ">
+        <span class="ds-social-stats__stat">
+          <i class="ds-icon ds-icon--comments"></i>14        </span>
+        <span id="post-likes-counter" class="ds-social-stats__stat">
+          <i class="ds-icon ds-icon--likes-outline"></i>37        </span>
+        <span class="ds-social-stats__stat">
+          <i class="ds-icon ds-icon--views"></i>7,162        </span>
+      </div>
+          </div>
+    <div class="ds-blog-post__body ds-editor-content">
+      <p>SAP HANA Cloud <a href="https://help.sap.com/viewer/3c53bc7b58934a9795b6dd8c7e28cf05/cloud/en-US/2e7660d216144e78bb809ce0f9c6382a.html"  target="_blank" >now includes the Automated Predictive Library</a> (APL). Find out how to train ML models within SAP HANA Cloud automatically, without having to extract the data. Use the familiar SAP HANA Python Client API for ML to trigger the required calculations in the SAP HANA Cloud straight from your preferred Python environment. Most of the code is also relevant for SAP HANA on-premise.</p>
+<p>If you are in a hurry, you can read through this blog to become familiar with this concept. If you want to dig deep, you can follow the implementation steps and learn hands-on.</p>
+<p>This blog was written by both <a href="https://people.sap.com/marc.daniau#overview"  target="_blank" >Marc Daniau</a> (Product Expert, SAP) and <a href="https://people.sap.com/andreas.forster#overview"  target="_blank" >Andreas FORSTER</a> (Global Center of Excellence, SAP). Therefore, the term &#8220;we&#8221; in this blog refers to ourselves, Marc and Andreas, and not necessarily SAP. There is no guarantee or support for any information or code in this blog. Please test any content that you may want to use yourself.</p>
+<p>Our thanks go to Frank Gottfried, Christoph Morgen and Raymond Yao for their help in putting this tutorial together!</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2020/05/284502_shutterstock_1049407283_low_nwm.jpg" alt="" data-index="1" data-id="plbox-1113330" /></p>
+<h1>Table of contents</h1>
+<ul>
+<li><a href="#introduction" >Introduction / Use case</a></li>
+<li><a href="#setup_hana" >Setup SAP HANA Cloud</a></li>
+<li><a href="#setup_python" >Setup local Python</a></li>
+<li><a href="#create_user" >Create SAP HANA user</a></li>
+<li><a href="#data_upload" >Data upload</a></li>
+<li><a href="#eda" >Data exploration</a></li>
+<li><a href="#train" >Train ML model</a></li>
+<li><a href="#apply" >Apply ML model</a></li>
+<li><a href="#deployment" >Deployment</a></li>
+<li><a href="#summary" >Summary</a></li>
+</ul>
+<h1><a name="introduction"></a>Introduction / Use case</h1>
+<p><a href="https://saphanacloudservices.com/hana-cloud/"  target="_blank" >SAP HANA Cloud</a> is the latest evolution of SAP HANA. Released in March 2020, it combines the technology known from the on-premise version of SAP HANA with cloud benefits such as scalability.</p>
+<p>It contains many of the known SAP HANA engines, such as the <a href="https://help.sap.com/viewer/product/apl/latest/en-US"  target="_blank" >Automated Predictive Library (APL)</a>. The APL, which is a highly automated ML framework, has also been evolving and now includes a &#8220;Gradient Boosting Classification&#8221;. This new Gradient Boosting Classification automates the process of finding an ML model, similar to the previous APL. The new Gradient Classification approach however tends to result in stronger models. Since the APL product group is focussing further improving this approach, we suggest working with the new &#8220;Gradient Boosting Classification&#8221;, as we do in this blog.</p>
+<p>The APL can be called through SQL or directly from Python. In this blog we make use of Python and the corresponding library <a href="https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/latest/en-US/hana_ml.html"  target="_blank" >hana_ml</a>, which simplifies the calling of SAP HANA functionality. We will call the APL, but the library can also call the <a href="https://help.sap.com/viewer/2cfbc5cf2bc14f028cfbe2a2bba60a50/latest/en-US"  target="_blank" >Predictive Algorithm Library (PAL)</a>.</p>
+<p>As example to work with the Gradient Boosting Classification, we will predict the affinity of a Banking customer to sign up for a term deposit, in which money can be locked for a certain period and accrues higher interest rates.</p>
+<p>&nbsp;</p>
+<h1><a name="setup_hana"></a>Setup SAP HANA Cloud</h1>
+<p>To implement this Bank Marketing scenario you need access to SAP HANA Cloud. This SAP HANA Cloud with the following configuration:</p>
+<ul>
+<li>It must have at least 3 virtual CPUs (vCPUs). The current SAP HANA Cloud Trial comes only with 2 vCPUs. In that trial it is not possible to increase the number of vCPUs. Therefore you must create your own instance of SAP HANA Cloud in the SAP Cloud Platform Cockpit as described in this <a href="https://www.youtube.com/playlist?list=PL48QrZZyMuAYJ5TxjTMK2_y5_5-RKJC2P"  target="_blank" >playlist</a> from the SAP HANA Academy, which also contains plenty of additional material.</li>
+<li>Your SAP HANA Cloud must have the Script Server enabled to be able to use the Automated Predictive Library (APL). For a new SAP HANA Cloud instance the Script Server can be <a href="https://help.sap.com/viewer/db19c7071e5f4101837e23f06e576495/2020_03_QRC/en-US/f7febb16072b41f7ac90abf5ea1d4b86.html"  target="_blank" >enabled</a> when creating the instance. For existing sytems, the Script Server can be activated with a <a href="https://help.sap.com/viewer/db19c7071e5f4101837e23f06e576495/cloud/en-US/918e714867e1409da47fa01ce03ba8f3.html"  target="_blank" >Service Request</a>.</li>
+<li>Your SAP HANA Cloud must permit connections from your IP address, e.g. by selecting &#8220;Allow all IP addresses&#8221;.</li>
+</ul>
+<p>The &#8220;<a href="https://saphanacloudservices.com/hana-cloud/learning-article/what-is-sap-hana-cloud"  target="_blank" >Getting Started with SAP HANA Cloud</a>&#8221; guide also gives an excellent overview, just bear in mind that you cannot use the trial environment to implement this blog&#8217;s hands-on scenario. <a href="https://people.sap.com/denys.kempen"  target="_blank" >Denys van Kempen</a> has also put together a huge <a href="https://blogs.sap.com/2020/03/28/getting-started-with-sap-hana-cloud/" >collection of SAP HANA Cloud material</a>. In case you might be a little puzzled about the different version of SAP HANA that have been around, Denys has also created a <a href="https://blogs.sap.com/2020/05/09/sap-hana-cheat-sheet/" >SAP (HANA) Cheat Sheet</a>.</p>
+<p>There is also a Learning Article on <a href="https://saphanajourney.com/hana-cloud/learning-article/using-jupyter-notebooks-with-sap-hana-cloud/"  target="_blank" >Using Jupyter Notebooks with SAP HANA Cloud</a> that helps with the first steps.</p>
+<p>To continue hands-on, you need to know:</p>
+<ul>
+<li>The SAP HANA Cloud endpoint (e.g. xyz.hanacloud.ondemand.com)</li>
+<li>The HTTPS port, which is always 443</li>
+<li>The password for the DBADMIN user</li>
+</ul>
+<h1><a name="setup_python"></a>Setup local Python</h1>
+<p>You need an environment to execute Python code. In case you already have an environment to work with, please use it. In case you are new to Python, we suggest installing <a href="https://www.anaconda.com/products/individual#Downloads"  target="_blank" >Anaconda</a>, which will install and configure everything that is needed.</p>
+<p>Once you have downloaded and installed Anaconda, open the Anaconda Navigator and select JupyterLab.</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2020/06/10-Anaconda-Navigator.png" alt="" data-index="2" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>An alternative, and much faster, approach to open JupyterLab is through the Anaconda Prompt. Open the Anaconda Prompt, then type: jupyter lab</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2020/06/20-Anaconda-Prompt.png" alt="" data-index="3" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>If you haven&#8217;t worked with JupyterLab so far, not to worry It&#8217;s easy to find your way around. One very useful introduction for the first steps is this <a href="http://www.rpgroup.caltech.edu/ncbs_pboc/code/t0b_jupyter_notebooks.html"  target="_blank" >tutorial from the California Institute of Technology (Caltech</a>).</p>
+<p>With Python at your fingertips, create a new Python 3 Notebook and install SAP&#8217;s <a href="https://pypi.org/project/hana-ml/"  target="_blank" >hana_ml</a> library, which provides the connectivity and push-down to the SAP HANA Cloud.</p>
+<pre class="language-python"><code>!pip install hana_ml</code></pre>
+<p>&nbsp;</p>
+<p>After installation, check on the version that has been installed.</p>
+<pre class="language-python"><code>import hana_ml
+print(hana_ml.__version__)</code></pre>
+<p>You should have at least version 2.5.20062605 for connecting to SAP HANA Cloud. This tutorial was tested with version 2.5.20062609.</p>
+<p>&nbsp;</p>
+<h1><a name="create_user"></a>Create SAP HANA user</h1>
+<p>Test the connectivity by running a very simple SELECT statement. You will need the SAP HANA Cloud endpoint, HDB port and the DBADMIN user&#8217;s password. Here we see the password in clear text only for a quick test. Later on, we will securely store the passwords.</p>
+<pre class="language-python"><code>import hana_ml.dataframe as dataframe
+
+# Instantiate connection object
+conn = dataframe.ConnectionContext(address = 'yourendpoint',
+                                   port = 443, 
+                                   user = 'DBADMIN', 
+                                   password = 'yourpassword', 
+                                   encrypt = 'true',
+                                   sslValidateCertificate = 'false' 
+                                  )
+
+# Send basic SELECT statement and display the result
+sql = 'SELECT 12345 FROM DUMMY'
+df_remote = conn.sql(sql)
+print(df_remote.collect())</code></pre>
+<p>&nbsp;</p>
+<p>If everything works as expected, the code should return the value 12345. Later on you will see how to keep the password secure. For now we continue with the connection to create a user on the SAP HANA Cloud to call the Automated Predictive Library.</p>
+<p>Create a user called ML, just change the password.</p>
+<pre class="language-python"><code>cursor = conn.connection.cursor()
+cursor.execute('CREATE USER ML Password "YOURPASSWORD" SET USERGROUP DEFAULT;')</code></pre>
+<p>&nbsp;</p>
+<p>Keep things simple by specifying that the user does not have to change the password. Note that this is <a href="https://help.sap.com/viewer/b3ee5778bc2e4a089d3299b82ec762a7/latest/en-US/61662e3032ad4f8dbdb5063a21a7d706.html#id_k4d_wkl_45"  target="_blank" >recommended only for technical users</a>.</p>
+<pre class="language-python"><code>cursor.execute('ALTER USER ML DISABLE PASSWORD LIFETIME;')</code></pre>
+<p>&nbsp;</p>
+<p>Grant the new ML user the right to call the Automated Predictive Library.</p>
+<pre class="language-python"><code>cursor.execute('GRANT "sap.pa.apl.base.roles::APL_EXECUTE" TO ML')</code></pre>
+<p>&nbsp;</p>
+<p>Grant the ML user the right to call the Predictive Algorithm Library. This right is needed in this tutorial only so that the Boxplot that you will see later can be calculated in SAP HANA.</p>
+<pre class="language-python"><code>cursor.execute('GRANT "AFL__SYS_AFL_AFLPAL_EXECUTE_WITH_GRANT_OPTION" TO ML')</code></pre>
+<p>&nbsp;</p>
+<p>Close the connection that was established with the DBADMIN user. From now on, we will use only the ML user.</p>
+<pre class="language-python"><code>cursor.close()</code></pre>
+<p>&nbsp;</p>
+<p>However, we don&#8217;t want to have the password visible in clear text. Use the Secure User Store from the <a href="https://tools.eu1.hana.ondemand.com/#hanatools"  target="_blank" >SAP HANA client</a> to securely store the logon credentials.</p>
+<p>Navigate in a command prompt (cmd.exe) to the folder that contains the hdbuserstore, e.g.<br />
+C:\Program Files\SAP\hdbclient</p>
+<p>Then store the logon parameters in the Secure User Store, by calling the hdbuserstore application. In the example below the parameters are saved under a key called MYHANACLOUD. You are free to chose your own name.</p>
+<p>C:\Program Files\SAP\hdbclient&gt;hdbuserstore -i SET MYHANACLOUD “YOURENDPOINT:PORT” ML</p>
+<p>The password is not specified in the above command as you will be prompted for it. Just note that the logon credentials have not been tested yet. They have only been saved.</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2020/06/30-hdbuserstore-3.png" alt="" data-index="4" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>Use the stored credentials to logon without having to show the password.</p>
+<pre class="language-python"><code>import hana_ml.dataframe as dataframe
+
+# Instantiate connection object
+conn = dataframe.ConnectionContext(userkey = 'MYHANACLOUD',
+                                   encrypt = 'true')
+
+# Send basic SELECT statement and display the result
+sql = 'SELECT 12345 FROM DUMMY'
+df_remote = conn.sql(sql)
+print(df_remote.collect())
+
+# Close connection
+conn.close()</code></pre>
+<p>&nbsp;</p>
+<p>The result of the SELECT statement has not changed of course. Now you are good to keep working with the ML user.</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" loading="lazy" src="https://blogs.sap.com/wp-content/uploads/2020/06/40-logon-3.png" alt="" width="419" height="274" data-index="5" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<h1><a name="data_upload"></a>Data upload</h1>
+<p>Your system is ready. Now you need to fill it with data to work with. We will be working with the &#8220;<a href="https://archive.ics.uci.edu/ml/datasets/Bank+Marketing"  target="_blank" >Bank Marketing Data Set</a>&#8221; as shared by the UC Irvine Machine Learning Repository. Download <a href="https://archive.ics.uci.edu/ml/machine-learning-databases/00222/bank.zip"  target="_blank" >bank.zip</a> and extract the file bank-full.csv.</p>
+<p>Place the bank-full.csv into your JupyterLab environment, for example by uploading it through the File Browser.</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2020/06/50-File-upload.png" alt="" data-index="6" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>Create another Python 3 Notebook and rename it to &#8220;10 data upload&#8221;. Begin with loading the CSV file into a Pandas DataFrame.</p>
+<pre class="language-python"><code>import pandas as pd
+df_data = pd.read_csv('bank-full.csv', sep = ';')
+df_data.head(5)</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2020/06/60-Pandas.png" alt="" data-index="7" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>Before uploading the data to SAP HANA Cloud, carry out a few transformations. Turn the column headers into upper case.</p>
+<pre class="language-python"><code>df_data.columns = map(str.upper, df_data.columns)</code></pre>
+<p>&nbsp;</p>
+<p>Drop the DURATION column. It tells how many minutes the calls lasted when the term deposit was promoted. This column cannot be used as predictor to score a person&#8217;s interest in signing up for the product. Before we call the person, we don&#8217;t know the length of the phone call. Hence remove it from the DataFrame.</p>
+<pre class="language-python"><code>df_data = df_data.drop(['DURATION'],
+                       axis = 1)</code></pre>
+<p>&nbsp;</p>
+<p>The target column is currently called just &#8216;Y&#8217;. Rename it to something more self-explanatory.</p>
+<pre class="language-python"><code>df_data = df_data.rename(index = str, columns = {'Y': 'PURCHASE'})</code></pre>
+<p>&nbsp;</p>
+<p>Add an ID column.</p>
+<pre class="language-python"><code>df_data.insert(0, 'CUSTOMER_ID', df_data.reset_index().index)</code></pre>
+<p>&nbsp;</p>
+<p>Preview a few rows of the transformed data.</p>
+<pre class="language-python"><code>df_data.head(5)</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2020/06/70-transformed-data.png" alt="" data-index="8" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>We are happy with the data, so upload it to SAP HANA Cloud. Establish a connection with the hana_ml wrapper&#8230;</p>
+<pre class="language-python"><code>import hana_ml.dataframe as dataframe
+conn = dataframe.ConnectionContext(userkey = 'MYHANACLOUD',
+                                   encrypt = 'true')</code></pre>
+<p>&nbsp;</p>
+<p>&#8230; and upload the Pandas DataFrame into a table called BANKMARKETING.</p>
+<pre class="language-python"><code>df_remote = dataframe.create_dataframe_from_pandas(connection_context = conn, 
+                                                   pandas_df = df_data, 
+                                                   table_name = 'BANKMARKETING',
+                                                   force = True,
+                                                   replace = False)</code></pre>
+<p>&nbsp;</p>
+<p>Once we have trained a Machine Learning model, we want to apply it on new data. Therefore create a second table, in which you load two rows of &#8220;invented&#8221; customers, whose behaviour will be predicted.</p>
+<p>Create a new DataFrame, just without the target column.</p>
+<pre class="language-python"><code>df_topredict = pd.DataFrame(data = None, 
+                            columns = df_data.columns.drop('PURCHASE'))
+for xx in df_topredict.columns:
+    df_topredict[xx] = df_topredict[xx].astype(df_data[xx].dtypes.name)</code></pre>
+<p>&nbsp;</p>
+<p>Add the two imaginary customers.</p>
+<pre class="language-python"><code>df_topredict = pd.concat([df_topredict, pd.DataFrame({'CUSTOMER_ID': 1, 
+                                    'AGE': 40, 
+                                    'JOB': 'entrepreneur', 
+                                    'MARITAL': 'married', 
+                                    'EDUCATION': 'secondary',  
+                                    'DEFAULT': 'no', 
+                                    'BALANCE': 3000,
+                                    'HOUSING': 'yes',
+                                    'LOAN': 'no',
+                                    'CONTACT': 'unknown',
+                                    'DAY': 10,
+                                    'MONTH': 'may',
+                                    'CAMPAIGN': 1,
+                                    'PDAYS': -1,
+                                    'PREVIOUS': 0,
+                                    'POUTCOME': 'unknown'}, index=[0])])
+df_topredict = pd.concat([df_topredict, pd.DataFrame({'CUSTOMER_ID': 2, 
+                                    'AGE': 65, 
+                                    'JOB': 'management', 
+                                    'MARITAL': 'single', 
+                                    'EDUCATION': 'tertiary',  
+                                    'DEFAULT': 'no', 
+                                    'BALANCE': 3000,
+                                    'HOUSING': 'no',
+                                    'LOAN': 'no',
+                                    'CONTACT': 'telephone',
+                                    'DAY': 10,
+                                    'MONTH': 'mar',
+                                    'CAMPAIGN': 1,
+                                    'PDAYS': -1,
+                                    'PREVIOUS': 12,
+                                    'POUTCOME': 'success'}, index=[0])])</code></pre>
+<p>&nbsp;</p>
+<p>Upload the new Pandas DataFrame into a table called BANKMARKETING_TOPREDICT.</p>
+<pre class="language-python"><code>df_remote = dataframe.create_dataframe_from_pandas(connection_context = conn, 
+                                                   pandas_df = df_topredict, 
+                                                   table_name = 'BANKMARKETING_TOPREDICT',
+                                                   force = True,
+                                                   replace = False)</code></pre>
+<p>&nbsp;</p>
+<h1><a name="eda"></a>Data exploration</h1>
+<p>Now the real fun can start. Begin the Data Science part by exploring the data that we have to work with. Create a new Python 3 Notebook called &#8220;20 Data exploration&#8221;.</p>
+<p>Connect to SAP HANA Cloud.</p>
+<pre class="language-python"><code>import hana_ml.dataframe as dataframe
+conn = dataframe.ConnectionContext(userkey = 'MYHANACLOUD',
+                                   encrypt = 'true')</code></pre>
+<p>&nbsp;</p>
+<p>Create a SAP HANA dataframe and point it to the table with the uploaded data. Sort the dataframe to ensure reproducibility.</p>
+<pre class="language-python"><code>df_remote = conn.table(table = 'BANKMARKETING', schema = 'ML').sort('CUSTOMER_ID', desc = False)
+df_remote.head(5).collect()</code></pre>
+<p>&nbsp;</p>
+<p>Alternatively, you can also base the SAP HANA dataframe on a SELECT statement.</p>
+<pre class="language-python"><code>df_remote = conn.sql('SELECT * FROM "ML"."BANKMARKETING" ORDER BY "CUSTOMER_ID" ASC')
+df_remote.head(5).collect()</code></pre>
+<p>&nbsp;</p>
+<p>Start exploring with the basics. How many rows are in the source?</p>
+<pre class="language-python"><code>df_remote.count()</code></pre>
+<p>45211. This value was calculated by SAP HANA. Only the final outcome was transferred back to Python.</p>
+<p>&nbsp;</p>
+<p>What are the names and types of the data columns?</p>
+<pre class="language-python"><code>df_remote.dtypes()</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" loading="lazy" src="https://blogs.sap.com/wp-content/uploads/2020/06/80-column-types.png" alt="" width="347" height="294" data-index="9" data-id="plbox-1113330" /></p>
+<p>Each column is listed with its name, type and size. The last two values are relevant when the data type is DECIMAL or SPATIAL.</p>
+<p>Now get some detailed column statistics, similar to how Pandas describes a DataFrame.</p>
+<pre class="language-python"><code>df_remote.describe().collect()</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2020/06/90-describe.png" alt="" data-index="10" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>It&#8217;s not obvious by looking at this table, but each cell was calculated in SAP HANA Cloud. The massive SQL statement that was created by the hana_ml wrapper can be retrieved.</p>
+<pre class="language-python"><code>df_remote.describe().select_statement</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2020/06/100-select-torn.png" alt="" data-index="11" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>Look closer at the target variable. How many people bought the product? And how much is that in percent?</p>
+<pre class="language-python"><code>top_n = 5 
+variable_name = 'PURCHASE'
+
+# Get Top N categories
+total_count = df_remote.count()
+df_remote_col_frequency = df_remote.agg([('count', variable_name, 'COUNT')],  group_by = variable_name)
+df_col_frequency = df_remote_col_frequency.sort("COUNT", desc = True).head(top_n).collect()
+df_col_frequency['PERCENT'] = round(df_col_frequency['COUNT'] / total_count, 2)
+df_col_frequency.style.format({'COUNT':'{0:,.0f}', 'PERCENT':'{0:,.1%}'}).hide(axis='index')</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" loading="lazy" src="https://blogs.sap.com/wp-content/uploads/2020/06/110-target-variable-1.png" alt="" width="229" height="96" data-index="12" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>A plot also helps to quickly understand the numbers.</p>
+<pre class="language-python"><code>%matplotlib inline 
+df_col_frequency.plot.bar(x = 'PURCHASE', y = 'COUNT', title = 'Top ' + str(top_n));</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" loading="lazy" src="https://blogs.sap.com/wp-content/uploads/2020/06/120-target-plot.png" alt="" width="320" height="231" data-index="13" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>Use a box plot to compare the buyers from the non-buyers based on the balance in their bank account.</p>
+<pre class="language-abap"><code>import matplotlib.pyplot as plt
+from hana_ml.visualizers.eda import EDAVisualizer
+f = plt.figure()
+ax1 = f.add_subplot(111) # 111 refers to 1x1 grid, 1st subplot
+eda = EDAVisualizer(ax1)
+ax, cont = eda.box_plot(data = df_remote, column = 'BALANCE', groupby = 'PURCHASE', outliers = True)</code></pre>
+<p>&nbsp;</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2020/06/130-boxplot.png" alt="" data-index="14" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>That&#8217;s a bit of a surprise. The contacts with the highest balances did not sign up for the term deposit. We are ready to train our Machine Learning model.</p>
+<p>&nbsp;</p>
+<h1><a name="train"></a>Train ML model</h1>
+<p>Create a new Python 3 Notebook called “30 Train ML model”.</p>
+<p>Connect to SAP HANA Cloud.</p>
+<pre class="language-python"><code>import hana_ml.dataframe as dataframe
+conn = dataframe.ConnectionContext(userkey = 'MYHANACLOUD',
+                                   encrypt = 'true')</code></pre>
+<p>&nbsp;</p>
+<p>Create a SAP HANA dataframe and point it to the table with the uploaded data. Sort the dataframe to ensure reproducibility. Alternatively, you can also base the SAP HANA dataframe on a SELECT statement as shown in the above &#8220;Data exploration&#8221; chapter.</p>
+<p>&nbsp;</p>
+<pre class="language-python"><code>df_remote = conn.table(table = 'BANKMARKETING', schema = 'ML').sort('CUSTOMER_ID', desc = False)
+df_remote.head(5).collect()</code></pre>
+<p>&nbsp;</p>
+<p>Create an object of type GradientBoostingBinaryClassifier, which will train the APL model.</p>
+<pre class="language-python"><code>from hana_ml.algorithms.apl.gradient_boosting_classification import GradientBoostingBinaryClassifier
+gbapl_model = GradientBoostingBinaryClassifier()</code></pre>
+<p>Specify the target variable and the value the model should predict. By default the model will predict the occurrence of the less frequent value. Even though we want to predict the less common behaviour. it&#8217;s prudent to be specific, which also helps document the model behaviour.</p>
+<pre class="language-python"><code>col_target = 'PURCHASE'
+target_value = 'yes'</code></pre>
+<p>&nbsp;</p>
+<p>Specify the ID column.</p>
+<pre class="language-python"><code>col_id = 'CUSTOMER_ID'</code></pre>
+<p>&nbsp;</p>
+<p>Specify the predictor columns. Just remove the target and id columns.</p>
+<pre class="language-python"><code>col_predictors = df_remote.columns
+col_predictors.remove(col_target)
+col_predictors.remove(col_id)
+col_predictors</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" loading="lazy" src="https://blogs.sap.com/wp-content/uploads/2020/06/140-predictor-columns-1.png" alt="" width="115" height="312" data-index="15" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>Further configure how the model will be trained.</p>
+<pre class="language-python"><code>gbapl_model.set_params(eval_metric = 'AUC') # Metric used to evaluate the model performance
+gbapl_model.set_params(cutting_strategy = 'random with no test') # Internal splitting strategy
+gbapl_model.set_params(other_train_apl_aliases={'APL/VariableAutoSelection': 'true', 
+                                                'APL/Interactions': 'true',
+                                                'APL/InteractionsMaxKept': 10, 
+                                                'APL/TargetKey': target_value})</code></pre>
+<p>&nbsp;</p>
+<p>Start the learning process. This might take a minute to calculate. The APL is now automatically going through the steps a Data Scientist would have to carry out manually. It is pre-processing the data, e.g. with binning, grouping or imputation, before calculating and testing different Gradient Boosting models.</p>
+<pre class="language-python"><code>gbapl_model.fit(data = df_remote, 
+                key = col_id, 
+                features = col_predictors, 
+                label = col_target)</code></pre>
+<p>&nbsp;</p>
+<p>When the model has been found, look at it&#8217;s quality metric.</p>
+<p>&nbsp;</p>
+<pre class="language-python"><code>import pandas as pd
+list_performance = gbapl_model.get_performance_metrics()
+df_performance = pd.DataFrame(list(list_performance.items()), columns=['METRIC', 'VALUE'])
+df_performance.loc[df_performance['METRIC'].isin(['AUC', 'BestIteration'])].style.hide(axis='index')</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" loading="lazy" src="https://blogs.sap.com/wp-content/uploads/2020/06/150-AUC.png" alt="" width="152" height="84" data-index="16" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>We have an AUC of 0.82. The model was found in iteration number 276 in our case. A lot more information is available about the model. Looks at the basics, how many variables and records were used?</p>
+<pre class="language-python"><code>df_summary = gbapl_model.get_summary().filter("KEY in ('ModelVariableCount', 'ModelSelectedVariableCount', 'ModelRecordCount', 'ModelBuildDate')").collect()
+df_summary = df_summary[['KEY','VALUE']]
+df_summary['KEY'] = df_summary['KEY'].str.replace('Model', '').str.replace('Selected', 'Selected ')
+df_summary['KEY'] = df_summary['KEY'].str.replace('Count', ' Count').str.replace('Date', ' Date')
+df_summary.style.hide(axis='index')</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" loading="lazy" src="https://blogs.sap.com/wp-content/uploads/2020/06/160-model-details.png" alt="" width="286" height="154" data-index="17" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p><span style="color: #000000">All records from the dataset were used of course. You had provided 15 different variables for the model to consider. Plus the target variable (PURCHASE) and the ID (CUSTOMER_ID) in total 17 variables were touched.  </span></p>
+<p>Before looking deeper at the variables that were selected for the models, which ones have been excluded?</p>
+<pre class="language-python"><code>df_excluded = gbapl_model.get_indicators().filter("KEY like 'VariableExclusion%'").collect()
+df_excluded = df_excluded[['VARIABLE','VALUE']]
+df_excluded.columns = ['Excluded Variable', 'Reason']
+df_excluded.style.hide(axis='index')</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" loading="lazy" src="https://blogs.sap.com/wp-content/uploads/2020/06/165-dropped-variables.png" alt="" width="217" height="106" data-index="18" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>Three predictor variables were dropped. But how important are the chosen / remaining variables for the model? The APL provides detailed information about the model that helps understand the model&#8217;s behaviour. This is often called Global Explainable ML / AI. A Data Scientist might be interested to know, that the feature importance is based on Shapley.</p>
+<pre class="language-python"><code>list_contributions = gbapl_model.get_feature_importances()['ExactSHAP']
+df_contribution = pd.DataFrame(list(list_contributions.items()), columns=['VARIABLE', 'CONTRIBUTION'])
+df_contribution['CUMULATIVE'] = df_contribution['CONTRIBUTION'].cumsum()
+format_dict = {'CONTRIBUTION':'{0:,.2%}','CUMULATIVE':'{0:,.2%}'}
+df_contribution.style.format(format_dict).hide(axis='index')</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" loading="lazy" src="https://blogs.sap.com/wp-content/uploads/2020/06/170-variable-contributions.png" alt="" width="266" height="346" data-index="19" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>Most important is the CONTACT variable, followed by the MONTH in which the customer was contacted.</p>
+<p>A pareto plot helps see the importance of the variables. First ensure, that the seaborn package, which is used for the charting, is actually installed.</p>
+<pre class="language-python"><code>!pip install seaborn</code></pre>
+<p>&nbsp;</p>
+<p>Now the plot can be created.</p>
+<pre class="language-python"><code>import matplotlib.pyplot as plt
+import seaborn as sns
+from  matplotlib.ticker import PercentFormatter
+f = plt.figure()
+ax1 = f.add_subplot(111) # 111 refers to 1x1 grid, 1st subplot
+ax2 = ax1.twinx()
+sns.barplot(data = df_contribution, 
+             x = 'VARIABLE', 
+             y = 'CONTRIBUTION',
+             color = '#1f77b4',
+             ax=ax1)
+sns.lineplot(data = df_contribution, sort=False,
+             x = 'VARIABLE', 
+             y = 'CUMULATIVE',
+             color = 'red',
+             ax=ax2)
+ax1.set_xticklabels(ax1.get_xticklabels(),rotation=30)
+ax1.yaxis.set_major_formatter(PercentFormatter(1))
+ax2.yaxis.set_major_formatter(PercentFormatter(1))
+ax2.set_ylim(0, 1)
+plt.show();</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" loading="lazy" src="https://blogs.sap.com/wp-content/uploads/2020/06/180-pareto-1.png" alt="" width="443" height="274" data-index="20" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>So far we see which variables are most important to the model. You might be wondering though, what information is correlating with the behaviour you are looking for. During which months for example were the Marketing activities most successful. We can look into each variable and understand their behaviour in more detail.</p>
+<p>Obtain the detailed variable contribution for the MONTH.</p>
+<pre class="language-python"><code>variable_name = 'MONTH'
+df_category_profit = gbapl_model.get_indicators().filter("KEY = 'GroupNormalProfit' and VARIABLE = '" + variable_name + "'").collect()
+df_category_profit = df_category_profit[['VARIABLE', 'TARGET', 'DETAIL', 'VALUE']]
+df_category_profit['VALUE'] = df_category_profit['VALUE'].astype(float)
+df_category_profit.columns = ['Predictor', 'Target','Category','Profit']
+df_category_profit = df_category_profit.sort_values(by = ['Profit'], ascending = False)
+df_category_profit.style.format({'Profit':'{0:,.2%}'}).hide(axis='index')</code></pre>
+<p>&nbsp;</p>
+<p>And bring these details into a plot.</p>
+<pre class="language-python"><code>import seaborn as sns
+import matplotlib.pyplot as plt
+from matplotlib.ticker import PercentFormatter
+plt.figure()
+bplot = sns.barplot(data = df_category_profit, x = 'Category', y = 'Profit', color = '#1f77b4')
+bplot.set_title(variable_name)
+bplot.set_xticklabels(bplot.get_xticklabels(), rotation = 45);
+bplot.yaxis.set_major_formatter(PercentFormatter(1))</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2020/07/BarChartProfits-1.png" alt="" data-index="21" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>Categories on the left hand side in the above chart have the highest proportion of the target population. This means the purchasing affinity (influence) was highest when the customer was contacted in March, September, October or December.</p>
+<p>The categories are sorted in descending order of the proportion / influence. When the influence (y-axis) becomes negative, the target proportion of the category is lower than the overall&#8217;s population. This means people were less likely to purchase. People were not keen to buy the product in May. In summary: the further left the category on the x-axis, the higher the affinity.</p>
+<p>Plot the category significance for some other variables. AGE is interesting for example. The relationship between age and purchasing affinity is not linear.</p>
+<p>For those who want to look a little deeper into the model, view the correlations between the input variables. The APL can calculate a full correlation matrix, as all input variables are encoded numerically. APL can deal with highly correlation variables, so you don&#8217;t have to go this deep. However, in case there are highly correlated variables you can consider dropping these from the input variables to speed up the calculation time.</p>
+<pre class="language-python"><code>df_correlations = gbapl_model.get_indicators().filter("KEY = 'CorrelatedVariable'").collect()
+df_correlations = df_correlations[['VARIABLE', 'DETAIL', 'VALUE']]
+df_correlations['VALUE'] = df_correlations['VALUE'].astype(float).round(3)
+df_correlations.columns = ['1st Variable', '2nd Variable', 'Coefficient']
+df_correlations = df_correlations.sort_values(by = ['Coefficient'], ascending = False)
+df_correlations.style.hide(axis='index')</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" loading="lazy" src="https://blogs.sap.com/wp-content/uploads/2020/06/193-correlations.png" alt="" width="268" height="113" data-index="22" data-id="plbox-1113330" /></p>
+<p>There is nothing that would concern us here, but these three variables have fairly strong correlations to each other.</p>
+<p>Another optional deep-dive is a look at the interactions, which the model found between the variables.</p>
+<pre class="language-python"><code>df_interactions = gbapl_model.get_indicators().filter("KEY = 'InteractionValue' and to_char(VALUE) &lt;&gt; '0'").collect()
+df_interactions = df_interactions[['VARIABLE', 'DETAIL', 'VALUE']]
+df_interactions['VALUE'] = df_interactions['VALUE'].astype(float).round(3)
+df_interactions.columns = ['1st Variable', '2nd Variable', 'Interaction']
+df_interactions = df_interactions.sort_values(by = ['Interaction'], ascending = False)
+df_interactions.style.format({'Interaction':'{0:,.3f}'}).hide(axis='index')</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" loading="lazy" src="https://blogs.sap.com/wp-content/uploads/2020/06/196-interactions-1.png" alt="" width="240" height="292" data-index="23" data-id="plbox-1113330" /></p>
+<p>No strong interactions were found. We are just showing them here for you to know, that the APL&#8217;s new GradientBoostingBinaryClassifier captures these automatically. These interactions can also be very relevant in interpreting the model&#8217;s logic.</p>
+<p>Let&#8217;s have a look at one further detail, that we can use later on. The model will be using SHAP scores for the predictions. With the complete trained model still available at the moment, we can find out the threshold score, which will be used to separate positive and negative predictions.</p>
+<pre class="language-abap"><code>df_threshold = gbapl_model.get_indicators().filter("KEY = 'Threshold'").collect()
+df_threshold = df_threshold[['VARIABLE', 'VALUE']]
+df_threshold['VALUE'] = df_threshold['VALUE'].astype(float)
+df_threshold.columns = ['Target', 'Score Treshold']
+df_threshold.style.hide(axis='index')</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" loading="lazy" src="https://blogs.sap.com/wp-content/uploads/2020/06/198-shap-threshold.png" alt="" width="159" height="47" data-index="24" data-id="plbox-1113330" /></p>
+<p>Scores below -1.15998 will lead to negative predictions. Scores above will lead to positive predictions.</p>
+<p>&nbsp;</p>
+<p>This score can be converted to the corresponding probability value:</p>
+<pre class="language-python"><code>import math
+score = df_threshold.iloc[0, 1]
+1 / (1 + math.exp(-score))</code></pre>
+<p>&nbsp;</p>
+<p>We are now familiar with the model and could use it right away for predictions. However, it&#8217;s also a good moment to save the model first to the SAP HANA Cloud.</p>
+<pre class="language-python"><code>from hana_ml.model_storage import ModelStorage
+MODEL_SCHEMA = 'ML' # HANA schema in which models are to be saved
+model_storage = ModelStorage(connection_context=conn, schema = MODEL_SCHEMA)
+gbapl_model.name = 'Bank Marketing Model'
+model_storage.save_model(model=gbapl_model, if_exists = 'replace')</code></pre>
+<p>&nbsp;</p>
+<h1><a name="apply"></a>Apply ML model</h1>
+<p>Let&#8217;s use the model to create predictions! Create a new Python 3 Notebook called “40 Apply ML model”.</p>
+<p>Connect to SAP HANA Cloud.</p>
+<pre class="language-python"><code>import hana_ml.dataframe as dataframe
+conn = dataframe.ConnectionContext(userkey = 'MYHANACLOUD',
+                                   encrypt = 'true')</code></pre>
+<p>&nbsp;</p>
+<p>Create the SAP HANA DataFrame, which points to the table with the entities that need to be predicted. Sort the data for reproducibility.</p>
+<pre class="language-abap"><code>df_remote_new = conn.table(table = 'BANKMARKETING_TOPREDICT', schema = 'ML').sort("CUSTOMER_ID", desc = False)
+df_remote_new.head(5).collect()</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2020/06/200-to-predict-1.png" alt="" data-index="25" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>Load the trained ML model.</p>
+<pre class="language-python"><code>from hana_ml.model_storage import ModelStorage
+MODEL_SCHEMA = 'ML' # HANA schema from where models are to be loaded
+model_storage = ModelStorage(connection_context = conn, schema = MODEL_SCHEMA)
+gbapl_model = model_storage.load_model(name = 'Bank Marketing Model', version = 1)</code></pre>
+<p>&nbsp;</p>
+<p>Apply the model to predict the behaviour of the two customers. For each person we obtain an overall probability of purchasing the product (proba_PURCHASE) and the yes / no prediction.</p>
+<pre class="language-abap"><code>gbapl_model.set_params(extra_applyout_settings =
+                        {'APL/ApplyExtraMode': 'Advanced Apply Settings',
+                         'APL/ApplyDecision': 'true',
+                         'APL/ApplyProbability': 'true',
+                         'APL/ApplyPredictedValue': 'false'
+                        })
+df_remote_predict = gbapl_model.predict(df_remote_new)
+df_predict = df_remote_predict.head(10).collect()
+df_predict.columns = [hdr.replace('gb_', '') for hdr in df_predict.columns] # shorten column names
+df_predict.style.format({'proba_PURCHASE':'{0:,.3f}'}).hide(axis='index')</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" loading="lazy" src="https://blogs.sap.com/wp-content/uploads/2020/07/205-predicted-5.png" alt="" width="363" height="101" data-index="26" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>If you would like to understand which characteristics of a customer contributed towards a positive or negative prediction, you can leverage the so called SHAP values.</p>
+<pre class="language-python"><code>gbapl_model.set_params(extra_applyout_settings={'APL/ApplyExtraMode': 'Individual Contributions'})
+df_remote_predict = gbapl_model.predict(df_remote_new)
+df_predict = df_remote_predict.head(10).collect()
+df_predict.columns = [hdr.replace("gb_", "") for hdr in df_predict.columns] # Shorten column names
+df_predict</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2020/06/210-predict-1-1.png" alt="" data-index="27" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>Each prediction relates to a SHAP value (score_PURCHASE), which itself is a sum of the SHAP values of the individual predictors, which are also shown. The higher the overall score, the higher the probability the person will purchase the product. Earlier on we saw the threshold that is used to differentiate between positive and negative predictions (1.15998 in this case).</p>
+<p>&nbsp;</p>
+<p><span style="color: #ff0000"><span style="color: #000000">If you want to better understand how the variables contributed to these individual predictions (local explainable ML / AI, just rearrange the data format and visualise them in a plot.</span></span></p>
+<pre class="language-python"><code>df_contributions_single = df_predict[df_predict['CUSTOMER_ID'] == 2]
+df_contributions_single = df_contributions_single.melt(id_vars = ['CUSTOMER_ID', 'PREDICTED', 'score_PURCHASE'])
+df_contributions_single.columns = ['CUSTOMER_ID', 'PREDICTED', 'SCORE', 'VARIABLE', 'CONTRIBUTION']
+df_contributions_single = df_contributions_single.sort_values(by = ['CONTRIBUTION'], ascending = [False])
+df_contributions_single.style.format({'CONTRIBUTION':'{0:,.3f}'}) 
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+
+%matplotlib inline 
+plt.figure()
+bar_color = np.where(df_contributions_single['CONTRIBUTION'] &gt; 0 ,'green', 'red')
+bplot = sns.barplot(data = df_contributions_single, x = 'VARIABLE', y = 'CONTRIBUTION',  palette = bar_color.tolist())
+bplot.set_title('Contributions')
+bplot.set_xticklabels(bplot.get_xticklabels(), rotation = 90)
+plt.axhline(y = 0, color = 'grey', linewidth = 1)
+plt.ylim(-2.5, 2.5);</code></pre>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" decoding="async" loading="lazy" src="https://blogs.sap.com/wp-content/uploads/2020/06/220-shap-plot.png" alt="" width="417" height="402" data-index="28" data-id="plbox-1113330" /></p>
+<p>&nbsp;</p>
+<p>The above plot shows the variable&#8217;s contribution for customer number 2. Towards the left the variables that contributed most strongly to a positive prediction are shown. The &#8220;contrib_constant_bias&#8221; shown in the plot is not a variable. It is an element of the trained model, which can be interpreted as an average, which is adjusted by the individual variables.</p>
+<p>Write the predictions to a table in SAP HANA Cloud, where other processes or Analytical tools like SAP Analytics Cloud can pick them up.</p>
+<pre class="language-python"><code>df_remote_predict.save(where=('ML', 'BANKMARKETING_PREDICTED'), 
+                       table_type = 'COLUMN', 
+                       force = True)</code></pre>
+<p>&nbsp;</p>
+<p>Just close the connection, and you are done.</p>
+<pre class="language-python"><code>conn.close()</code></pre>
+<p>&nbsp;</p>
+<h1><a name="deployment"></a>Deployment</h1>
+<p><a href="https://www.sap.com/products/data-intelligence.html"  target="_blank" >SAP Data Intelligence</a> provides the platform to deploy HANA ML models into production. Its &#8220;ML Scenario Manager&#8221; for example combines Jupyter Notebooks for creation with graphical pipelines for deployment.</p>
+<p>You can deploy both the Automated Predictive Library (APL) and the Predictive Algorithm Library (PAL) as well as open source like Python or R.</p>
+<p>It is important that your HANA ML operators use a recent version of the Python library <a href="https://pypi.org/project/hana-ml/"  target="_blank" >hana_ml</a> (version 2.5.x). This is already the case with SAP Data Intelligence Cloud.</p>
+<h1><a name="summary"></a>Summary</h1>
+<p>Well done for making it to the end of this tutorial! You have connected to SAP HANA Cloud, uploaded and explored data, before training a Machine Learning model, whose logic you explored. Until eventually you applied the model to create predictions, whose drivers you also looked at.</p>
+<p>Hopefully you had fun along the way and want to work with this further! You can continue with the next hands-on tutorial, in which you <a href="https://blogs.sap.com/2020/12/07/hands-on-tutorial-score-your-apl-model-in-stand-alone-javascript/" >score your APL model in stand-alone JavaScript</a>. Independent of SAP HANA, this provides deployment flexibility. You could use the model in an IoT scenario, directly at the edge. Or wherever JavaScript can run.</p>
+<p>Here are some further links you might find useful.</p>
+<ul>
+<li><a href="https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/latest/en-US/hana_ml.html"  target="_blank" >SAP HANA Python Client API for Machine Learning Algorithms</a></li>
+<li><a href="https://help.sap.com/viewer/product/apl/latest/en-US"  target="_blank" >Documentation SAP HANA Automated Predictive Library</a></li>
+<li><a href="https://github.com/SAP-samples/hana-ml-samples/tree/master/Python-API/apl/notebooks"  target="_blank" >Sample Notebooks for the Automated Predictive Library</a></li>
+<li><a href="https://blogs.sap.com/2020/02/24/updates-for-the-data-scientist-building-sap-hana-embedded-machine-learning-scenarios-from-python-or-r/" >Updates for the Data Scientist, building SAP HANA embedded Machine Learning scenarios from Python or R</a></li>
+</ul>
+<p>&nbsp;</p>
+<p>Marc Daniau and Andreas Forster</p>
+    </div>
+  </div>
+  <div class="ds-blog-post__social-side-bar">
+    <div class="ds-sticky-on-scroll ">
+      <div class="ds-sticky-on-scroll__wrapper  ">
+        <div class="ds-sticky-on-scroll__content">
+          <div class="ds-blog-post__social-actions">
+            <button class="sap-button-follow ds-button ds-button--primary ds-blog-post__social-action ds-blog-post__social-action--follow" id="sap-button-follow-hdr-id" onclick="location.href='https://blogs.sap.com/wp-login.php?redirect_to=https%3A%2F%2Fblogs.sap.com%2F2020%2F07%2F27%2Fhands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud%2F%3Fs_action%3Dss_change_follow_status%26nonce%3D3be0b14985'" rel="IDS_login"  type="button" data-content-type="blogpost" data-content-id="1113330" data-nonce="3be0b14985" title="Please log into the system to use follow/unfollow functionality."><span class="ds-button-text">Follow</span></button>            <button type='button' class='ds-button ds-button--secondary ds-button--icon-button ds-blog-post__social-action likes-post-link dolike ' rel='IDS_login' onclick="location.href='https://blogs.sap.com/wp-login.php?redirect_to=https%3A%2F%2Fblogs.sap.com%2F2020%2F07%2F27%2Fhands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud%2F%3Fs_action%3Dss_change_like_status%26nonce%3D98f2cce5d7'" title='Like' data-nonce='98f2cce5d7' data-post-id='1113330'><i class='ds-icon ds-icon--likes-outline ds-icon--regular ds-m-r-xs' tabindex='-1'></i><span class='ds-button-text'>Like</span></button>            <button type="button" class="ds-button ds-button--secondary ds-button--icon-button ds-blog-post__social-action" title="RSS Feed" onclick="location.href='https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/feed/'">
+              <i class="ds-icon ds-icon--rss-feed ds-icon--regular ds-m-r-xs" tabindex="-1"></i>RSS Feed
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+            <div class="ds-blog-post__social-row">
+              <div class="ds-blog-post__social-icons">
+                <a href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblogs.sap.com%2F2020%2F07%2F27%2Fhands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud%2F' title='Share on Facebook' target='_blank'><span class='ds-social-icon ds-social-icon--dark-facebook'></span></a><a href='https://twitter.com/share?url=https%3A%2F%2Fblogs.sap.com%2F2020%2F07%2F27%2Fhands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud%2F&text=Hands-On+Tutorial%3A+Automated+Predictive+%28APL%29+in+SAP+HANA+Cloud' title='Share on Twitter' target='_blank'><span class='ds-social-icon ds-social-icon--dark-twitter'></span></a><a href='https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fblogs.sap.com%2F2020%2F07%2F27%2Fhands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud%2F&title=Hands-On+Tutorial%3A+Automated+Predictive+%28APL%29+in+SAP+HANA+Cloud' title='Share on LinkedIn' target='_blank'><span class='ds-social-icon ds-social-icon--dark-linkedin'></span></a>              </div>
+              <div class='ds-tooltip__wrapper'>
+    <div class='ds-tooltip__anchor'>
+    <button
+      type="button"
+      class="ds-button ds-button--secondary ds-blog-post__alert-moderator-button ds-button--disabled"
+      aria-label="Alert Moderator"
+      data-toggle="collapse"
+      data-hide-class="ds-collapse"
+      data-triggers=".alertModerator"
+      aria-expanded="false">Alert Moderator
+    </button>
+    </div>
+    <div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Alerting is not available for unauthorized users</div>
+</div>
+            </div>
+            
+  <div class="wprc-content-v3">
+    <div class="ds-blog-post-form ds-blog-post__alert-moderator-form ds-collapse alertModerator wprc-form-v3" data-toggle="collapseComponent" data-name="alertModerator">
+          </div>
+  </div>
+          </div>
+          <div class="ds-blog-post__right-side-bar ds-flexCol-sm-12 ds-flexCol-md-3">
+            <div id="sapassignedtagswidget-v3-2" class="ds-side-bar-widget ds-assigned-tags ds-m-b-l"><h3 class="ds-side-bar-widget__heading">Assigned Tags</h3></div><div id="sap-relatedcontent-widget-v3-2" class="ds-side-bar-widget widget_sap-relatedcontent-widget-v3"><button type="button" class="ds-side-bar-widget__heading ds-side-bar-widget__heading--collapsible" aria-expanded="true">Similar Blog Posts<i class="ds-icon ds-icon--arrow-up ds-icon--big" tabindex="-1"></i></button><div class="ds-side-bar-widget__content"><ul class="ds-relatedContent ds-relatedContent__list" data-types="blogpost" data-limit="3"></ul></div></div><div id="sap-relatedcontent-widget-v3-3" class="ds-side-bar-widget widget_sap-relatedcontent-widget-v3"><button type="button" class="ds-side-bar-widget__heading ds-side-bar-widget__heading--collapsible" aria-expanded="true">Related Questions<i class="ds-icon ds-icon--arrow-up ds-icon--big" tabindex="-1"></i></button><div class="ds-side-bar-widget__content"><ul class="ds-relatedContent ds-relatedContent__list" data-types="question" data-limit="3"></ul></div></div>          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="content-lightbox-modal"aria-modal="true" aria-label="Lightbox gallery opened" role="dialog" tabindex="-1" class="ds-lightbox" data-id="plbox-1113330"><div class="ds-lightbox__box"><div class="ds-lightbox__slideNumber"><span class="ds-lightbox__slideNumber--current"></span>/<span class="ds-lightbox__slideNumber--total"></span></div><div class="ds-lightbox__header"><a href="javascript:void(0);" data-id="plbox-1113330" class="ds-lightbox__headerIcon ds-icon-encoded--close" aria-label="Close lightbox"></a></div><div class="ds-lightbox__content--scrollable ds-lightbox__content"><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/05/284502_shutterstock_1049407283_low_nwm.jpg" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/10-Anaconda-Navigator.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/20-Anaconda-Prompt.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/30-hdbuserstore-3.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/40-logon-3.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/50-File-upload.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/60-Pandas.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/70-transformed-data.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/80-column-types.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/90-describe.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/100-select-torn.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/110-target-variable-1.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/120-target-plot.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/130-boxplot.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/140-predictor-columns-1.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/150-AUC.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/160-model-details.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/165-dropped-variables.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/170-variable-contributions.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/180-pareto-1.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/07/BarChartProfits-1.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/193-correlations.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/196-interactions-1.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/198-shap-threshold.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/200-to-predict-1.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/07/205-predicted-5.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/210-predict-1-1.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/06/220-shap-plot.png" alt=""/></div><a class="lightbox-gallery-button--prev ds-lightbox__gallery-button ds-icon ds-icon--arrow-left" href="javascript:void(0);" aria-label="Show previous image"></a><a class="ds-lightbox__gallery-button lightbox-gallery-button--next ds-icon ds-icon--arrow-right" href="javascript:void(0);" aria-label="Show next image"></a></div><div class="zoom-buttons"><a class="ds-lightbox__zoom-out" href="javascript:void(0);" aria-label="Enter to zoom out"><i class="ds-icon ds-icon--minus"></i></a><a class="ds-lightbox__zoom-in" href="javascript:void(0);" aria-label="Enter to zoom in"><i class="ds-icon ds-icon--plus"></i></a></div></div></div>
+  <div class="ds-blog-post__comment-section">
+    <div class="ds-flexGrid">
+      <div class="ds-flexRow">
+        <div class="ds-flexCol-12 ds-flexCol-md-10 ds-flexCol-lg-10">
+          
+<div id="comments" class="ds-blog-post-comments">
+  
+      <div class="ds-blog-post-comments__counter" title="Number of Comments">
+      14 Comments      </div>
+              <div class="dm-section dm-align-center dm-section-header__title" title="Please log on to comment" aria-role="alert">
+                You must be <a href="https://blogs.sap.com/wp-login.php?redirect_to=2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud" class="opener js-idspopup" rel="IDS_login" title="Log On">Logged on</a> to comment or reply to a post.
+        </div>
+      
+    <div class="ds-blog-post-comments__list">
+              <div class="comment byuser comment-author-pparkinson even thread-even depth-1 ds-blog-post-comment" id="li-comment-520325">
+        <div id="comment-520325" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/pparkinson">
+                <img alt='Author&#039;s profile photo Phillip Parkinson' src='https://avatars.services.sap.com/images/pparkinson_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Phillip Parkinson' href='https://people.sap.com/pparkinson' rel='external nofollow' class='ds-link ds-user__name ' >Phillip Parkinson</a>  <div class="ds-user__roles"><i class="ds-user__role ds-user__role--employee" title="This user is an SAP Employee" data-role-name="SAP Employee"></i></div>                </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2020-07-27T21:54:35+00:00"
+                >July 27, 2020 at 9:54 pm</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Excellent tutorial <a href="https://people.sap.com/andreas.forster" rel="nofollow ugc">Andreas</a> and <a href="https://people.sap.com/marc.daniau" rel="nofollow ugc">Marc</a>, thank you.</p>
+<p>After installing the APL plugin I was able to complete the full tutorial on my HANA 2.0 SP05 system.</p>
+              </div>
+
+            <div id="comment-actions-520325" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_520325" tabindex="-1">Like 0</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/#comment-520325'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            </div><!-- #comment-## -->
+    <div class="comment byuser comment-author-maximesimon odd alt thread-odd thread-alt depth-1 ds-blog-post-comment" id="li-comment-520345">
+        <div id="comment-520345" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/maxime.simon">
+                <img alt='Author&#039;s profile photo Maxime Simon' src='https://avatars.services.sap.com/images/maxime.simon_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Maxime Simon' href='https://people.sap.com/maxime.simon' rel='external nofollow' class='ds-link ds-user__name ' >Maxime Simon</a>  <div class="ds-user__roles"><i class="ds-user__role ds-user__role--employee" title="This user is an SAP Employee" data-role-name="SAP Employee"></i></div>                </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2020-07-28T05:07:53+00:00"
+                >July 28, 2020 at 5:07 am</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Thank you for always releasing useful content so quickly !</p>
+              </div>
+
+            <div id="comment-actions-520345" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_520345" tabindex="-1">Like 0</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/#comment-520345'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            </div><!-- #comment-## -->
+    <div class="comment byuser comment-author-ganeshmoorthyduraisamy even thread-even depth-1 ds-blog-post-comment" id="li-comment-520892">
+        <div id="comment-520892" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/ganeshmoorthy.duraisamy">
+                <img alt='Author&#039;s profile photo Ganesh Moorthy Duraisamy' src='https://avatars.services.sap.com/images/ganeshmoorthy.duraisamy_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Ganesh Moorthy Duraisamy' href='https://people.sap.com/ganeshmoorthy.duraisamy' rel='external nofollow' class='ds-link ds-user__name ' >Ganesh Moorthy Duraisamy</a>  <div class="ds-user__roles"><i class="ds-user__role ds-user__role--employee" title="This user is an SAP Employee" data-role-name="SAP Employee"></i></div>                </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2020-07-30T08:20:17+00:00"
+                >July 30, 2020 at 8:20 am</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Hi Andreas,</p>
+<p>Below links you provided for data sets are not accessible, please check</p>
+<p><a href="https://archive.ics.uci.edu/ml/machine-learning-databases/00222/bank.zip" rel="nofollow ugc"  target="_blank">https://archive.ics.uci.edu/ml/machine-learning-databases/00222/bank.zip</a></p>
+<p><a href="https://archive.ics.uci.edu/ml/datasets/Bank+Marketing" rel="nofollow ugc"  target="_blank">https://archive.ics.uci.edu/ml/datasets/Bank+Marketing</a></p>
+<p>&nbsp;</p>
+<p>BR,</p>
+<p>Ganesh</p>
+              </div>
+
+            <div id="comment-actions-520892" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_520892" tabindex="-1">Like 0</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/#comment-520892'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            <div class="ds-blog-post-comment__comments">
+    <div class="comment byuser comment-author-andreasforster bypostauthor odd alt depth-2 ds-blog-post-comment" id="li-comment-520895">
+        <div id="comment-520895" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/andreas.forster">
+                <img alt='Author&#039;s profile photo Andreas Forster' src='https://avatars.services.sap.com/images/andreas.forster_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Andreas Forster' href='https://people.sap.com/andreas.forster' rel='external nofollow' class='ds-link ds-user__name ' >Andreas Forster</a> <div class="ds-user__note">Blog Post Author</div> <div class="ds-user__roles"><i class="ds-user__role ds-user__role--employee" title="This user is an SAP Employee" data-role-name="SAP Employee"></i></div>                </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2020-07-30T08:25:37+00:00"
+                >July 30, 2020 at 8:25 am</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Hi Ganesh, The UCI Machine Learning Repository appears to be down at the moment.<br />
+https://archive.ics.uci.edu/<br />
+I will send you the file directly<br />
+Andreas</p>
+              </div>
+
+            <div id="comment-actions-520895" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_520895" tabindex="-1">Like 0</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/#comment-520895'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            </div><!-- #comment-## -->
+</div><!-- .children -->
+</div><!-- #comment-## -->
+    <div class="comment byuser comment-author-girdhari_mondal even thread-odd thread-alt depth-1 ds-blog-post-comment" id="li-comment-544171">
+        <div id="comment-544171" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/girdhari_mondal">
+                <img alt='Author&#039;s profile photo Girdhari Mondal' src='https://avatars.services.sap.com/images/girdhari_mondal_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Girdhari Mondal' href='https://people.sap.com/girdhari_mondal' rel='external nofollow' class='ds-link ds-user__name ' >Girdhari Mondal</a>                  </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2020-12-15T06:40:07+00:00"
+                >December 15, 2020 at 6:40 am</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Nice blog Andreas!</p>
+<p>Was trying to explore this but I’m getting below error while trying to establish connection to SAP HANA cloud(trial version) from Jupyter notebook. Please suggest.</p>
+<p>Regards,</p>
+<p>Girdhari</p>
+<p> </p>
+<pre><span class="ansi-red-intense-fg ansi-bold">Error</span>: (-10709, 'Connect failed (connect timeout expired)')
+
+
+</pre>
+              </div>
+
+            <div id="comment-actions-544171" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_544171" tabindex="-1">Like 0</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/#comment-544171'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            <div class="ds-blog-post-comment__comments">
+    <div class="comment byuser comment-author-andreasforster bypostauthor odd alt depth-2 ds-blog-post-comment" id="li-comment-544555">
+        <div id="comment-544555" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/andreas.forster">
+                <img alt='Author&#039;s profile photo Andreas Forster' src='https://avatars.services.sap.com/images/andreas.forster_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Andreas Forster' href='https://people.sap.com/andreas.forster' rel='external nofollow' class='ds-link ds-user__name ' >Andreas Forster</a> <div class="ds-user__note">Blog Post Author</div> <div class="ds-user__roles"><i class="ds-user__role ds-user__role--employee" title="This user is an SAP Employee" data-role-name="SAP Employee"></i></div>                </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2020-12-15T16:28:16+00:00"
+                >December 15, 2020 at 4:28 pm</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Many thanks Girdhari, The HANA Cloud trial does not include the Automated Predictive Library, that is used in the blog.  However, the logon from hana_ml should still work. My first guess would be that your IP address might be denied by HANA Cloud.<br />
+Can you try with "Allow all IP addresses"? Here is a blog on this topic<br />
+https://blogs.sap.com/2020/10/30/allow-connections-to-sap-hana-cloud-instance-from-selected-ip-addresses-using-the-command-line/</p>
+              </div>
+
+            <div id="comment-actions-544555" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_544555" tabindex="-1">Like 0</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/#comment-544555'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            <div class="ds-blog-post-comment__comments">
+    <div class="comment byuser comment-author-girdhari_mondal even depth-3 ds-blog-post-comment" id="li-comment-544690">
+        <div id="comment-544690" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/girdhari_mondal">
+                <img alt='Author&#039;s profile photo Girdhari Mondal' src='https://avatars.services.sap.com/images/girdhari_mondal_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Girdhari Mondal' href='https://people.sap.com/girdhari_mondal' rel='external nofollow' class='ds-link ds-user__name ' >Girdhari Mondal</a>                  </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2020-12-16T06:21:58+00:00"
+                >December 16, 2020 at 6:21 am</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Thanks Andreas.</p>
+<p>Have tried with 'Allowed all IP address' but still getting same error. Please suggest.</p>
+<p>Regards,</p>
+<p>Girdhari</p>
+              </div>
+
+            <div id="comment-actions-544690" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_544690" tabindex="-1">Like 0</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/#comment-544690'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            <div class="ds-blog-post-comment__comments">
+    <div class="comment byuser comment-author-andreasforster bypostauthor odd alt depth-4 ds-blog-post-comment" id="li-comment-544726">
+        <div id="comment-544726" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/andreas.forster">
+                <img alt='Author&#039;s profile photo Andreas Forster' src='https://avatars.services.sap.com/images/andreas.forster_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Andreas Forster' href='https://people.sap.com/andreas.forster' rel='external nofollow' class='ds-link ds-user__name ' >Andreas Forster</a> <div class="ds-user__note">Blog Post Author</div> <div class="ds-user__roles"><i class="ds-user__role ds-user__role--employee" title="This user is an SAP Employee" data-role-name="SAP Employee"></i></div>                </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2020-12-16T08:42:27+00:00"
+                >December 16, 2020 at 8:42 am</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Hi Girdhari, Maybe you have a firewall or VPN in the way that's blocking the connection?<br />
+Can you please post the code without password, in case anything stands out?<br />
+Andreas</p>
+              </div>
+
+            <div id="comment-actions-544726" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_544726" tabindex="-1">Like 0</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/#comment-544726'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            <div class="ds-blog-post-comment__comments">
+    <div class="comment byuser comment-author-girdhari_mondal even depth-5 ds-blog-post-comment" id="li-comment-544735">
+        <div id="comment-544735" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/girdhari_mondal">
+                <img alt='Author&#039;s profile photo Girdhari Mondal' src='https://avatars.services.sap.com/images/girdhari_mondal_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Girdhari Mondal' href='https://people.sap.com/girdhari_mondal' rel='external nofollow' class='ds-link ds-user__name ' >Girdhari Mondal</a>                  </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2020-12-16T09:05:26+00:00"
+                >December 16, 2020 at 9:05 am</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Thanks Andreas.</p>
+<p>Below is the code for your ref. I was thinking if it's due to pydeck,ipwideget or nbextension. However, have tried after installing this packages but still same error. Is this because of any proxy settings, if yes can you please suggest how to pass proxy server details? Have tried by passing proxy details by referring 'https://help.sap.com/viewer/0eec0d68141541d1b07893a39944924e/2.0.04/en-US/ee592e89dcce4480a99571a4ae7a702f.html' but no luck.</p>
+<p>&nbsp;</p>
+<p><strong>Code:</strong></p>
+<p>import hana_ml.dataframe as dataframe</p>
+<p># Instantiate connection object<br />
+conn = dataframe.ConnectionContext(address = 'd9f1fd05-db18-4ebf-8a10-43befaf61e0b.hana.trial-eu10.hanacloud.ondemand.com',<br />
+port = 443,<br />
+user = 'DBADMIN',<br />
+password = '******',<br />
+encrypt = 'true',<br />
+sslValidateCertificate = 'false'<br />
+)</p>
+<p># Send basic SELECT statement and display the result</p>
+<p>sql = 'SELECT 12345 FROM DUMMY'<br />
+df_remote = conn.sql(sql)<br />
+print(df_remote.collect())</p>
+<p><strong>Error:</strong></p>
+<pre><span class="ansi-green-intense-fg ansi-bold">\AppData\Local\Continuum\anaconda3\lib\site-packages\hana_ml\dataframe.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-intense-fg ansi-bold">(self, address, port, user, password, autocommit, packetsize, userkey, **properties)</span>
+<span class="ansi-green-fg">    117</span>             packetsize<span class="ansi-yellow-intense-fg ansi-bold">=</span>packetsize<span class="ansi-yellow-intense-fg ansi-bold">,</span>
+<span class="ansi-green-fg">    118</span>             userkey<span class="ansi-yellow-intense-fg ansi-bold">=</span>userkey<span class="ansi-yellow-intense-fg ansi-bold">,</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 119</span>             <span class="ansi-yellow-intense-fg ansi-bold">**</span>properties
+<span class="ansi-green-fg">    120</span>         )
+<span class="ansi-green-fg">    121</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_pal_check_passed <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-green-intense-fg ansi-bold">False</span>
+
+<span class="ansi-red-intense-fg ansi-bold">Error</span>: (-10709, 'Connect failed (connect timeout expired)')</pre>
+              </div>
+
+            <div id="comment-actions-544735" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_544735" tabindex="-1">Like 0</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/#comment-544735'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            </div><!-- #comment-## -->
+    <div class="comment byuser comment-author-andreasforster bypostauthor odd alt depth-5 ds-blog-post-comment" id="li-comment-544800">
+        <div id="comment-544800" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/andreas.forster">
+                <img alt='Author&#039;s profile photo Andreas Forster' src='https://avatars.services.sap.com/images/andreas.forster_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Andreas Forster' href='https://people.sap.com/andreas.forster' rel='external nofollow' class='ds-link ds-user__name ' >Andreas Forster</a> <div class="ds-user__note">Blog Post Author</div> <div class="ds-user__roles"><i class="ds-user__role ds-user__role--employee" title="This user is an SAP Employee" data-role-name="SAP Employee"></i></div>                </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2020-12-16T12:35:40+00:00"
+                >December 16, 2020 at 12:35 pm</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Hi Girdhari, Your code works fine with my hana_ml version 2.6.20110600.<br />
+If you have a proxy, that would explain the behaviour. I haven't worked with a proxy yet, so I can only refer to the documentation. You already found the correct link<br />
+https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/2.0.04/en-US/hana_ml.dataframe.html#hana_ml.dataframe.ConnectionContext<br />
+https://help.sap.com/viewer/0eec0d68141541d1b07893a39944924e/2.0.04/en-US/ee592e89dcce4480a99571a4ae7a702f.html<br />
+In case this won't resolve it, you could try asking this as question to the whole community<br />
+https://community.sap.com/</p>
+              </div>
+
+            <div id="comment-actions-544800" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_544800" tabindex="-1">Like 0</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/#comment-544800'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            </div><!-- #comment-## -->
+    <div class="comment byuser comment-author-girdhari_mondal even depth-5 ds-blog-post-comment" id="li-comment-544933">
+        <div id="comment-544933" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/girdhari_mondal">
+                <img alt='Author&#039;s profile photo Girdhari Mondal' src='https://avatars.services.sap.com/images/girdhari_mondal_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Girdhari Mondal' href='https://people.sap.com/girdhari_mondal' rel='external nofollow' class='ds-link ds-user__name ' >Girdhari Mondal</a>                  </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2020-12-17T06:19:34+00:00"
+                >December 17, 2020 at 6:19 am</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Thanks Andreas.</p>
+<p>Will post the question in SAP community.</p>
+<p>Regards,</p>
+<p>Girdhari</p>
+<p> </p>
+              </div>
+
+            <div id="comment-actions-544933" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_544933" tabindex="-1">Like 0</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/#comment-544933'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            </div><!-- #comment-## -->
+</div><!-- .children -->
+</div><!-- #comment-## -->
+</div><!-- .children -->
+</div><!-- #comment-## -->
+</div><!-- .children -->
+</div><!-- #comment-## -->
+</div><!-- .children -->
+</div><!-- #comment-## -->
+    <div class="comment byuser comment-author-davidalzate13 odd alt thread-even depth-1 ds-blog-post-comment" id="li-comment-545696">
+        <div id="comment-545696" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/david.alzate13">
+                <img alt='Author&#039;s profile photo David Alzate' src='https://avatars.services.sap.com/images/david.alzate13_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name David Alzate' href='https://people.sap.com/david.alzate13' rel='external nofollow' class='ds-link ds-user__name ' >David Alzate</a>                  </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2020-12-22T21:28:52+00:00"
+                >December 22, 2020 at 9:28 pm</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Very interesting use of the hana-ml library. Currently, I am creating a pipeline and takind advantages of pandas and other libraries that ease the process of feature engineering. I wonder if we can have information of the license of hana-ml library, and also if there is a possibility to avoid hardcoding the password in a python script, if we want to call this within a pipeline?</p>
+<p>Is it possible to create a connection file, that can be used instead of using a user-password authentication?</p>
+              </div>
+
+            <div id="comment-actions-545696" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_545696" tabindex="-1">Like 0</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/#comment-545696'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            <div class="ds-blog-post-comment__comments">
+    <div class="comment byuser comment-author-andreasforster bypostauthor even depth-2 ds-blog-post-comment" id="li-comment-545738">
+        <div id="comment-545738" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/andreas.forster">
+                <img alt='Author&#039;s profile photo Andreas Forster' src='https://avatars.services.sap.com/images/andreas.forster_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Andreas Forster' href='https://people.sap.com/andreas.forster' rel='external nofollow' class='ds-link ds-user__name ' >Andreas Forster</a> <div class="ds-user__note">Blog Post Author</div> <div class="ds-user__roles"><i class="ds-user__role ds-user__role--employee" title="This user is an SAP Employee" data-role-name="SAP Employee"></i></div>                </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2020-12-23T07:22:54+00:00"
+                >December 23, 2020 at 7:22 am</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Hello David, There are a few options to avoid hardcoding the password.<br />
+You could store the password safely in the hdbuserstore. The section "Create SAP HANA user" describes an example. The connection is then established with</p>
+<pre class="language-python"><code>conn = dataframe.ConnectionContext(userkey = 'MYHANACLOUD', encrypt = 'true')</code></pre>
+<p>Alternatively, If the password is not specified in the code, hana_ml will prompt for it.</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="alignleft ds-lightbox__img" src="https://blogs.sap.com/wp-content/uploads/2020/07/PasswordPrompt.png" alt="" width="390" height="155" data-index="1" data-id="clbox-545738" /></p>
+<p>You could also store the password elsewhere, ie in a config file, and retrieve / pass it through code.</p>
+<p>For the licencing part, if you could reach out to your Account Executive please.<br />
+Feel free to put me on CC, happy to help along if I can.</p>
+<p>Andreas</p>
+              </div>
+
+            <div id="comment-actions-545738" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_545738" tabindex="-1">Like 0</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/#comment-545738'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+        <div id="content-lightbox-modal--545738"aria-modal="true" aria-label="Lightbox gallery opened" role="dialog" tabindex="-1" class="ds-lightbox" data-id="clbox-545738"><div class="ds-lightbox__box"><div class="ds-lightbox__slideNumber"><span class="ds-lightbox__slideNumber--current"></span>/<span class="ds-lightbox__slideNumber--total"></span></div><div class="ds-lightbox__header"><a href="javascript:void(0);" data-id="clbox-545738" class="ds-lightbox__headerIcon ds-icon-encoded--close" aria-label="Close lightbox"></a></div><div class="ds-lightbox__content--scrollable ds-lightbox__content"><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2020/07/PasswordPrompt.png" alt=""/></div></div><div class="zoom-buttons"><a class="ds-lightbox__zoom-out" href="javascript:void(0);" aria-label="Enter to zoom out"><i class="ds-icon ds-icon--minus"></i></a><a class="ds-lightbox__zoom-in" href="javascript:void(0);" aria-label="Enter to zoom in"><i class="ds-icon ds-icon--plus"></i></a></div></div></div>    </div><!-- #comment-## -->
+</div><!-- .children -->
+</div><!-- #comment-## -->
+    <div class="comment byuser comment-author-denizosoy odd alt thread-odd thread-alt depth-1 ds-blog-post-comment" id="li-comment-616651">
+        <div id="comment-616651" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/deniz.osoy">
+                <img alt='Author&#039;s profile photo Deniz Osoy' src='https://avatars.services.sap.com/images/deniz.osoy_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Deniz Osoy' href='https://people.sap.com/deniz.osoy' rel='external nofollow' class='ds-link ds-user__name ' >Deniz Osoy</a>  <div class="ds-user__roles"><i class="ds-user__role ds-user__role--employee" title="This user is an SAP Employee" data-role-name="SAP Employee"></i><i class="ds-user__role ds-user__role--topic-expert" title="This user is a Topic Expert" data-role-name="Topic Expert"></i></div>                </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2022-03-23T08:30:43+00:00"
+                >March 23, 2022 at 8:30 am</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Thank you for this blog post Andreas! Very helpful, excellent job!</p>
+              </div>
+
+            <div id="comment-actions-616651" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_616651" tabindex="-1">Like 0</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/#comment-616651'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            </div><!-- #comment-## -->
+
+      
+        </div> <!-- main comments content area -->
+
+    
+            
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+                </div> <!-- #main -->
+                <div id="shared_footer" class="dm-container dm-wrapper">
+                    <footer class="dm-footer">
+    <div class="dm-footer__inner-wrapper">
+        <div class="dm-socialmedia">
+            <h5 class="dm-socialmedia__headline" id="hl-sharefollow">Find us on</h5>
+            <ul class="dm-socialmedia__links" aria-labelledby="hl-sharefollow">
+                <li><a href="https://www.facebook.com/sapcommunity" title="Facebook"><span class="dm-icon-encoded--facebook"></span></a></li>
+                <li><a href="https://twitter.com/SAPCommunity" title="Twitter"><span class="dm-icon-encoded--twitter"></span></a></li>
+                <li><a href="https://www.youtube.com/c/SAPCommunities" title="YouTube"><span class="dm-icon-encoded--youtube"></span></a></li>
+                <li><a href="https://www.linkedin.com/company/sap" title="LinkedIn"><span class="dm-icon-encoded--linkedin"></span></a></li>
+                <li><a href="https://instagram.com/sap/" title="Instagram"><span class="dm-icon-encoded--instagram"></span></a></li>
+                <li><a href="http://www.slideshare.net/SAP" title="Slideshare"><span class="dm-icon-encoded--slideshare"></span></a></li>
+                <li><a href="mailto:?subject='SAP Community'" title="Email Share"><span class="dm-icon-encoded--email"></span></a></li>
+            </ul>
+        </div>
+        <nav role="navigation" class="dm-footer__navigation">
+            <ul class="dm-footer__navigation__list" aria-label="footer navigation">
+                <li><a href="https://community.sap.com/resources/sap-community-privacy-statement" target="_blank">Privacy</a></li>
+                <li><a href="http://sap.com/corporate/en/legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
+                <li><a href="http://sap.com/about/legal/impressum.html" target="_blank">Legal Disclosure</a></li>
+                <li><a href="http://sap.com/about/legal/copyright.html" target="_blank">Copyright</a></li>
+                <li><a href="http://sap.com/about/legal/trademark.html" target="_blank">Trademark</a></li>
+                <li id="teconsent"></li>
+                <li><a href="https://www.sap.com/cmp/nl/sap-community-voice/index.html" target="_blank">Newsletter</a></li>
+                <li><a href="https://community.sap.com/support" target="_blank">Support</a></li>
+            </ul>
+        </nav>
+    </div>
+</footer>                </div>
+            </div> <!-- #page -->
+            <script type="application/ld+json" data-schema="1113330-post-Default">{"@context":"https:\/\/schema.org\/","@type":"BlogPosting","@id":"https:\/\/blogs.sap.com\/2020\/07\/27\/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud\/#BlogPosting","mainEntityOfPage":"https:\/\/blogs.sap.com\/2020\/07\/27\/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud\/","headline":"Hands-On Tutorial: Automated Predictive (APL) in SAP HANA Cloud","name":"Hands-On Tutorial: Automated Predictive (APL) in SAP HANA Cloud","description":"SAP HANA Cloud now includes the Automated Predictive Library (APL). Find out how to train ML models within SAP HANA Cloud automatically, without having to extract the data. Use the familiar SAP HANA Python Client [&hellip;]","datePublished":"2020-07-27","dateModified":"2023-06-21","author":{"@type":"Person","@id":"https:\/\/blogs.sap.com\/author\/andreas.forster\/#Person","name":"Andreas Forster","url":"https:\/\/blogs.sap.com\/author\/andreas.forster\/","image":{"@type":"ImageObject","@id":"https:\/\/avatars.services.sap.com\/images\/andreas.forster_small.png","url":"https:\/\/avatars.services.sap.com\/images\/andreas.forster_small.png","height":96,"width":96}},"publisher":{"@type":"Organization","name":"SAP Community Blogs","logo":{"@type":"ImageObject","@id":"https:\/\/blogs.sap.com\/wp-content\/uploads\/2020\/03\/SAP_scrn_R-2.png","url":"https:\/\/blogs.sap.com\/wp-content\/uploads\/2020\/03\/SAP_scrn_R-2.png","width":600,"height":60}},"image":{"@type":"ImageObject","@id":"https:\/\/blogs.sap.com\/wp-content\/uploads\/2020\/05\/284502_shutterstock_1049407283_low_nwm.jpg","url":"https:\/\/blogs.sap.com\/wp-content\/uploads\/2020\/05\/284502_shutterstock_1049407283_low_nwm.jpg","height":"","width":""},"url":"https:\/\/blogs.sap.com\/2020\/07\/27\/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud\/","about":["Technical Articles"],"wordCount":4782,"keywords":["apl","HANA Python Client","hana_ml","python","SAP HANA Automated Predictive Library (APL)"]}</script>
+<script type="application/ld+json" data-schema="Breadcrumb">{"@context":"https:\/\/schema.org\/","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"2020","item":"https:\/\/blogs.sap.com\/2020\/#breadcrumbitem"},{"@type":"ListItem","position":2,"name":"07","item":"https:\/\/blogs.sap.com\/2020\/\/07\/#breadcrumbitem"},{"@type":"ListItem","position":3,"name":"27","item":"https:\/\/blogs.sap.com\/2020\/\/07\/\/27\/#breadcrumbitem"},{"@type":"ListItem","position":4,"name":"Hands-On Tutorial: Automated Predictive (APL) in SAP HANA Cloud","item":"https:\/\/blogs.sap.com\/2020\/07\/27\/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud\/#breadcrumbitem"}]}</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-comment-editor/js/action-tooltip-handler.min.js' id='tooltip-handler-js'></script>
+<script type='text/javascript' id='unified_header-js-extra'>
+/* <![CDATA[ */
+var headerInitArgs = {"system":"blogs","wrapperID":"page","breadcrumbItems":[{"text":"Blogs","href":"https:\/\/blogs.sap.com"}]};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://static.community.services.sap/com-hdr/v10/282.116.60/shared-ui/1dx-assets/js/scn-header.min.js' id='unified_header-js'></script>
+<script type='text/javascript' id='unified_header-js-after'>
+            scnHeader.init(headerInitArgs);
+            setCookie("userArgs", headerInitArgs.user ? JSON.stringify(headerInitArgs.user) : "", { path : "/" });
+    
+</script>
+<script type='text/javascript' src='https://static.community.services.sap/designmate/v3/241/latest/header.js' id='designmate_header_script-js'></script>
+<script type='text/javascript' src='https://static.community.services.sap/designmate/v3/241/latest/subheader.js' id='designmate_subheader_script-js'></script>
+<script type='text/javascript' src='https://static.community.services.sap/designmate/v3/241/latest/designmate.js' id='designmate_script-js'></script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-includes/js/comment-reply.min.js' id='comment-reply-js'></script>
+<script type='text/javascript' id='satm_handler-js-extra'>
+/* <![CDATA[ */
+var satmContentSelectors = ["div.dm-contentDetail__body-content","div.dm-list-comments__item-content","div.ds-blog-post__body","div.ds-blog-post-comment__content"];
+var satmProfileBaseUrl = "people.sap.com\/";
+var satmUssUrl = "https:\/\/uss.api.community.sap.com";
+var satmChangeableElementsSelectors = ["div.dm-list-comments__item-content","div.ds-blog-post-comment__content"];
+var satmPluginEnabled = "1";
+var satmApiUrl = "https:\/\/uss.api.community.sap.com";
+var satmApiCallWithCredentials = "1";
+var satmRequestDelayMs = "100";
+/* ]]> */
+</script>
+<script type='text/javascript' defer src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-at-mention/js/sap-at-mention.min.js' id='satm_handler-js'></script>
+<script type='text/javascript' id='sap-comment-validation-js-extra'>
+/* <![CDATA[ */
+var commentValidation = {"validateMaxLinks":"1","max_links_number":"7","BLOGS_PAGE":"single"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-comment-editor/js/sap-comment-validation.min.js' id='sap-comment-validation-js'></script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-core-custom/include/js/sap-post-status.min.js' id='scn_post_status_check-js'></script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/themes/sap-v3-neo/js/jquery-plugins.min.js' id='sap_jquery_plugins-js'></script>
+<script type='text/javascript' id='sap-login-csrf-cookie-js-extra'>
+/* <![CDATA[ */
+var sapLoginCookieConfig = {"cookieName":"SAP_BLOGS_ANONYMOUS_NONCE","sapActionName":"s_action"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-core-custom/include/js/sap-login-csrf-cookie.min.js' id='sap-login-csrf-cookie-js'></script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-core-custom/include/js/sap-eddl.min.js' id='sap_eddl-js'></script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-lightbox-gallery/lib/lightbox-gallery.min.js' id='sap_lightbox_gallery_js-js'></script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/themes/sap-v3-neo/js/choices.min.js' id='choices.js-js'></script>
+<script type='text/javascript' id='wprc-script-js-extra'>
+/* <![CDATA[ */
+var wprcajaxhandler = {"ajaxurl":"https:\/\/blogs.sap.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-report-content/static/js/v3/scripts.min.js' id='wprc-script-js'></script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/themes/sap-v3-neo/js/single.min.js' id='sap_single_v3-js'></script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/themes/sap-v3-neo/js/onscroll-sticky.min.js' id='onscroll_sticky-js'></script>
+<script type='text/javascript' id='blog-detail-page-js-extra'>
+/* <![CDATA[ */
+var alertReasonsSelectArgs = {"selectId":"sap-blog-alert-reasons","reasons":["Incorrect Tag\/Category\r","Cross-Posting\r","Private Information\r","Unprofessional Conduct\r","Spam"]};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/themes/sap-v3-neo/dist/blog-detail.min.js' id='blog-detail-page-js'></script>
+<script type='text/javascript' id='sap_assignedtags_widget_js_v3-js-extra'>
+/* <![CDATA[ */
+var assignedTagsWidgetSettings = {"maxItemsBeforeHide":"7","data":{"SAP Predictive Analytics":"https:\/\/blogs.sap.com\/tags\/73555000100800000084\/","Machine Learning":"https:\/\/blogs.sap.com\/tags\/240174591523510321507492941674121\/","SAP Data Intelligence":"https:\/\/blogs.sap.com\/tags\/73555000100800000791\/","SAP HANA":"https:\/\/blogs.sap.com\/tags\/73554900100700000996\/","SAP HANA Cloud":"https:\/\/blogs.sap.com\/tags\/73554900100800002881\/","apl":"https:\/\/blogs.sap.com\/tag\/apl\/","HANA Python Client":"https:\/\/blogs.sap.com\/tag\/hana-python-client\/","hana_ml":"https:\/\/blogs.sap.com\/tag\/hana_ml\/","python":"https:\/\/blogs.sap.com\/tag\/python\/","SAP HANA Automated Predictive Library (APL)":"https:\/\/blogs.sap.com\/tag\/sap-hana-automated-predictive-library-apl\/"},"widgetClassname":".ds-assigned-tags"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-widgets/include/assigned-tags/js/sap-assigned-tags-widget.min.js' id='sap_assignedtags_widget_js_v3-js'></script>
+<script type='text/javascript' id='sap_relatedcontent_widget_js_v3-js-extra'>
+/* <![CDATA[ */
+var relatedContentWidgetSettings = {"widgetSelector":".widget_sap-relatedcontent-widget-v3","dataSourceServiceUrl":"https:\/\/searchproxy.api.community.sap.com\/api\/v1\/search\/similar-content","profileUrl":"https:\/\/people.sap.com","targetContentItem":{"id":1113330,"type":"blogpost","title":"Hands-On Tutorial: Automated Predictive (APL) in SAP HANA Cloud","primary_tag":"73555000100800000084"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-widgets/include/related-content/js/sap-related-content-widget.min.js' id='sap_relatedcontent_widget_js_v3-js'></script>
+<div id="wp-load_tinymce-wrap" class="wp-core-ui wp-editor-wrap html-active"><link rel='stylesheet' id='dashicons-css' href='https://blogs.sap.com/res1dx-598/wp-includes/css/dashicons.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='editor-buttons-css' href='https://blogs.sap.com/res1dx-598/wp-includes/css/editor.min.css' type='text/css' media='all' />
+<style>#wp-load_tinymce-wrap {display:none;}</style>
+<div id="wp-load_tinymce-editor-container" class="wp-editor-container"><div id="qt_load_tinymce_toolbar" class="quicktags-toolbar"></div><textarea class="wp-editor-area" rows="20" cols="40" name="load_tinymce" id="load_tinymce"></textarea></div>
+</div>
+
+<link rel='preload' href='https://blogs.sap.com/wp-includes/js/tinymce/skins/lightgray/skin.min.css?wp-mce-49110-20201110' as='style'><link rel='preload' href='https://blogs.sap.com/wp-includes/js/tinymce/plugins/codesample/css/prism.css' as='style'><link rel='preload' href='https://blogs.sap.com/wp-includes/js/tinymce/skins/lightgray/content.min.css?wp-mce-49110-20201110' as='style'>
+		<script type="text/javascript">
+		tinyMCEPreInit = {
+			baseURL: "https://blogs.sap.com/wp-includes/js/tinymce",
+			suffix: ".min",
+						mceInit: {},
+			qtInit: {'load_tinymce':{id:"load_tinymce",buttons:"strong,em,link,block,del,ins,img,ul,ol,li,code,more,close"}},
+			ref: {plugins:"",theme:"modern",language:""},
+			load_ext: function(url,lang){var sl=tinymce.ScriptLoader;sl.markDone(url+'/langs/'+lang+'.js');sl.markDone(url+'/langs/'+lang+'_dlg.js');}
+		};
+		</script>
+				<script type="text/javascript">
+		var ajaxurl = "/wp-admin/admin-ajax.php";
+		( function() {
+			var init, id, $wrap;
+
+			if ( typeof tinymce !== 'undefined' ) {
+				if ( tinymce.Env.ie && tinymce.Env.ie < 11 ) {
+					tinymce.$( '.wp-editor-wrap ' ).removeClass( 'tmce-active' ).addClass( 'html-active' );
+					return;
+				}
+
+				for ( id in tinyMCEPreInit.mceInit ) {
+					init = tinyMCEPreInit.mceInit[id];
+					$wrap = tinymce.$( '#wp-' + id + '-wrap' );
+
+					if ( ( $wrap.hasClass( 'tmce-active' ) || ! tinyMCEPreInit.qtInit.hasOwnProperty( id ) ) && ! init.wp_skip_init ) {
+						tinymce.init( init );
+
+						if ( ! window.wpActiveEditor ) {
+							window.wpActiveEditor = id;
+						}
+					}
+				}
+			}
+
+			if ( typeof quicktags !== 'undefined' ) {
+				for ( id in tinyMCEPreInit.qtInit ) {
+					quicktags( tinyMCEPreInit.qtInit[id] );
+
+					if ( ! window.wpActiveEditor ) {
+						window.wpActiveEditor = id;
+					}
+				}
+			}
+		}());
+		</script>
+				<div id="wp-link-backdrop" style="display: none"></div>
+		<div id="wp-link-wrap" class="wp-core-ui" style="display: none" role="dialog" aria-labelledby="link-modal-title">
+		<form id="wp-link" tabindex="-1">
+		<input type="hidden" id="_ajax_linking_nonce" name="_ajax_linking_nonce" value="d8f8830c96" />		<h3 id="link-modal-title">Insert/edit link</h3>
+		<button type="button" id="wp-link-close"><span class="screen-reader-text">Close</span></button>
+		<div id="link-selector">
+			<div id="link-options">
+				<p class="howto" id="wplink-enter-url">Enter the destination URL</p>
+				<div>
+					<label><span>URL</span>
+					<input id="wp-link-url" type="text" aria-describedby="wplink-enter-url" /></label>
+				</div>
+				<div class="wp-link-text-field">
+					<label><span>Link Text</span>
+					<input id="wp-link-text" type="text" /></label>
+				</div>
+				<div class="link-target">
+					<label><span></span>
+					<input type="checkbox" id="wp-link-target" /> Open link in a new tab</label>
+				</div>
+			</div>
+			<p class="howto" id="wplink-link-existing-content">Or link to existing content</p>
+			<div id="search-panel">
+				<div class="link-search-wrapper">
+					<label>
+						<span class="search-label">Search</span>
+						<input type="search" id="wp-link-search" class="link-search-field" autocomplete="off" aria-describedby="wplink-link-existing-content" />
+						<span class="spinner"></span>
+					</label>
+				</div>
+				<div id="search-results" class="query-results" tabindex="0">
+					<ul></ul>
+					<div class="river-waiting">
+						<span class="spinner"></span>
+					</div>
+				</div>
+				<div id="most-recent-results" class="query-results" tabindex="0">
+					<div class="query-notice" id="query-notice-message">
+						<em class="query-notice-default">No search term specified. Showing recent items.</em>
+						<em class="query-notice-hint screen-reader-text">Search or use up and down arrow keys to select an item.</em>
+					</div>
+					<ul></ul>
+					<div class="river-waiting">
+						<span class="spinner"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="submitbox">
+			<div id="wp-link-cancel">
+				<button type="button" class="button">Cancel</button>
+			</div>
+			<div id="wp-link-update">
+				<input type="submit" value="Add Link" class="button button-primary" id="wp-link-submit" name="wp-link-submit">
+			</div>
+		</div>
+		</form>
+		</div>
+		<script type="text/javascript">jQuery(window).on("load", function() {tinymce.codesampleplugin.Prism.highlightAll();});</script><script type='text/javascript'>_satellite.pageBottom();</script>        </div> <!-- .page-wrapper -->
+    </body>
+</html>
+

@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="en-US">
+<![endif]-->
+
+<!--[if gte IE 9]>
+<html class="ie" lang="en-US">
+<![endif]-->
+
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en-US">
+<!--<![endif]-->
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar" content="black"/>
+    <title>Hands-On Tutorial: Leverage SAP HANA Machine Learning in the Cloud through the Predictive Analysis Library | SAP Blogs</title>
+    <link rel="profile" href="http://gmpg.org/xfn/11"/>
+
+    
+    
+    <!--[if lt IE 9]>
+    <script src="https://blogs.sap.com/wp-content/themes/sap-v3-neo/js/html5.min.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <script type="module" src="https://static.community.services.sap/com-hdr/v10/282.116.60/shared-ui/1dx-assets/js/cxs-designsystem/cxs-designsystem.esm.js"></script><link rel="icon" type="image"  href="https://static.community.services.sap/com-hdr/v10/282.116.60/shared-ui/1dx-assets/images/favicon.png" /><link rel="shortcut icon" type="image/x-icon"  href="https://static.community.services.sap/com-hdr/v10/282.116.60/shared-ui/1dx-assets/images/favicon.ico" /><link rel="apple-touch-icon" href="https://static.community.services.sap/com-hdr/v10/282.116.60/shared-ui/1dx-assets/images/apple-touch-icon.png" /><meta name='robots' content='max-image-preview:large' />
+    <script type="text/javascript">
+        window.adobeDataLayer = window.adobeDataLayer || [];
+    </script>
+    <link rel='dns-prefetch' href='//static.community.services.sap' />
+<link rel='dns-prefetch' href='//assets.adobedtm.com' />
+<link rel="alternate" type="application/rss+xml" title="SAP Blogs &raquo; Feed" href="https://blogs.sap.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="SAP Blogs &raquo; Comments Feed" href="https://blogs.sap.com/comments/feed/" />
+<meta name="type" content="Blog" /><meta name="description" content="The hard truth is that many machine learning projects fail to get set into production. It takes time and real effort to move from a machine learning model to a real business application. This is due to" /><meta name="sm_tech_ids" content="240174591523510321507492941674121,139269250608756787992873,87817424-f4e7-46f2-af14-88bf0f4ba034,f220d74d-56e2-487e-8e6c-a8cb3def2378,73554900100700000996,73554900100800002881"/><meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" /><link rel="alternate" type="application/rss+xml" title="SAP Blogs &raquo; Hands-On Tutorial: Leverage SAP HANA Machine Learning in the Cloud through the Predictive Analysis Library Comments Feed" href="https://blogs.sap.com/2021/02/25/hands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library/feed/" />
+<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/blogs.sap.com\/res1dx-598\/wp-includes\/js\/wp-emoji-release.min.js"}};
+/*! This file is auto-generated */
+!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){p.clearRect(0,0,i.width,i.height),p.fillText(e,0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(t,0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(p&&p.fillText)switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s("\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!s("\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!s("\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!s("\ud83e\udef1\ud83c\udffb\u200d\ud83e\udef2\ud83c\udfff","\ud83e\udef1\ud83c\udffb\u200b\ud83e\udef2\ud83c\udfff")}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(e=t.source||{}).concatemoji?c(e.concatemoji):e.wpemoji&&e.twemoji&&(c(e.twemoji),c(e.wpemoji)))}(window,document,window._wpemojiSettings);
+</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='twentytwelve-style-css' href='https://blogs.sap.com/res1dx-598/wp-content/themes/sap-v3-neo/style.min.css' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentytwelve-ie-css' href='https://blogs.sap.com/res1dx-598/wp-content/themes/sap-v3-neo/css/ie.css' type='text/css' media='all' />
+<![endif]-->
+<link rel='stylesheet' id='designmate_styles-css' href='https://static.community.services.sap/designmate/v3/241/latest/designmate.css' type='text/css' media='all' />
+<link rel='stylesheet' id='designsystem_styles-css' href='https://static.community.services.sap/community-ds/v1/381/main.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-css' href='https://blogs.sap.com/res1dx-598/wp-includes/css/dist/block-library/style.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='classic-theme-styles-css' href='https://blogs.sap.com/res1dx-598/wp-includes/css/classic-themes.min.css' type='text/css' media='all' />
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='prism-css' href='https://blogs.sap.com/res1dx-598/wp-includes/js/tinymce/plugins/codesample/css/prism.css' type='text/css' media='all' />
+<link rel='stylesheet' id='sap_custom_link_css-css' href='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-core-custom//include/css/sap-core-custom.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='sap_lightbox_gallery_css-css' href='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-lightbox-gallery/lib/lightbox-gallery.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='pt_style_css-css' href='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-primary-tag/css/pt_style.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wordpress-popular-posts-css-css' href='https://blogs.sap.com/res1dx-598/wp-content/plugins/wordpress-popular-posts/assets/css/wpp.css' type='text/css' media='all' />
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-includes/js/jquery/jquery.min.js' id='jquery-core-js'></script>
+<script type='text/javascript' id='jquery-core-js-after'>
+if (jQuery !== undefined) {
+                jQuery(window).on("load", function(){
+                    var _wpWindowLoaded = document.createElement("div");
+                    _wpWindowLoaded.setAttribute("class", "hidden");
+                    _wpWindowLoaded.setAttribute("id", "wp_window_loaded");
+                    document.body.appendChild(_wpWindowLoaded);
+                });
+            }
+</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-includes/js/jquery/jquery-migrate.min.js' id='jquery-migrate-js'></script>
+<script type='text/javascript' src='//assets.adobedtm.com/ccc66c06b30b/d266848b2882/launch-f095fbc32a96.min.js' id='scn_adobe_dtm-js'></script>
+<script type='application/json' id='wpp-json'>
+{"sampling_active":0,"sampling_rate":100,"ajax_url":"https:\/\/blogs.sap.com\/wp-json\/wordpress-popular-posts\/v1\/popular-posts","api_url":"https:\/\/blogs.sap.com\/wp-json\/wordpress-popular-posts","ID":1284380,"token":"4a88358a6f","lang":0,"debug":0}
+</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/wordpress-popular-posts/assets/js/wpp.min.js' id='wpp-js-js'></script>
+<link rel="https://api.w.org/" href="https://blogs.sap.com/wp-json/" /><link rel="alternate" type="application/json" href="https://blogs.sap.com/wp-json/wp/v2/posts/1284380" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://blogs.sap.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://blogs.sap.com/wp-includes/wlwmanifest.xml" />
+
+<link rel="canonical" href="https://blogs.sap.com/2021/02/25/hands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library/" />
+<link rel='shortlink' href='https://blogs.sap.com/?p=1284380' />
+<script type="text/javascript">var ajaxurl = "https://blogs.sap.com/wp-admin/admin-ajax.php";var likePostLabel = "Like";var unLikePostLabel = "Liked";var likeCommentLabel = "Like";var unLikeCommentLabel = "Liked";</script>            <style id="wpp-loading-animation-styles">@-webkit-keyframes bgslide{from{background-position-x:0}to{background-position-x:-200%}}@keyframes bgslide{from{background-position-x:0}to{background-position-x:-200%}}.wpp-widget-placeholder,.wpp-widget-block-placeholder{margin:0 auto;width:60px;height:3px;background:#dd3737;background:linear-gradient(90deg,#dd3737 0%,#571313 10%,#dd3737 100%);background-size:200% auto;border-radius:3px;-webkit-animation:bgslide 1s infinite linear;animation:bgslide 1s infinite linear}</style>
+                <!--[if IE ]>
+    <link rel="stylesheet" id="scn-ie-styles" href="https://blogs.sap.com/wp-content/themes/sap-v3-neo/css/ie.css"
+          type="text/css" media="all">
+    <link id="ids-popup-css" href="https://accounts.sap.com/universalui/shared/stylesheets/idsPopup.css"
+          rel="stylesheet"
+          type="text/css">
+    <![endif]-->
+
+
+</head>
+
+<body class="post-template-default single single-post postid-1284380 single-format-standard">
+
+
+<div class="page-wrapper">
+<b class="cn-accessibility"><a href="#main" tabindex="0" accesskey="S">Skip to Content</a></b>
+<div id="page" class="hfeed site">
+
+<header id="masthead" class="blogs-nav sap-header">
+    
+  <div class="ds-community-header">
+    <ds-contextual-navigation
+      main-links='[{"title":"Topics","url":"https://community.sap.com/topics","subMenuRows":[]},{"title":"Groups","url":"https://groups.community.sap.com","subMenuRows":[{"subMenuLinkItems":[{"category":"","url":"","items":[{"title":"All Groups","url":"https://groups.community.sap.com/","externalLink":true},{"title":"Locations","url":"https://groups.community.sap.com/t5/location/ct-p/location","externalLink":true},{"title":"Interests","url":"https://groups.community.sap.com/t5/interests/ct-p/interests","externalLink":true},{"title":"Activities","url":"https://groups.community.sap.com/t5/activities/ct-p/activities","externalLink":true},{"title":"Influence and Feedback Groups","url":" https://groups.community.sap.com/t5/influence-and-feedback-groups/ct-p/influence-feedback","externalLink":true}],"displayItemsAsCategoryLink":false}]}]},{"title":"Answers","url":"https://answers.sap.com","subMenuRows":[{"subMenuLinkItems":[{"category":"","url":"","items":[{"title":"All Questions","url":"https://answers.sap.com","externalLink":false},{"title":"Ask a Question","url":"https://answers.sap.com/questions/ask.html","externalLink":false},{"title":"How to Ask a Question","url":"https://developers.sap.com/tutorials/community-qa.html","externalLink":true},{"title":"Using Tags","url":"https://community.sap.com/resources/using-tags","externalLink":false},{"title":"All Tags","url":"https://answers.sap.com/tags.html","externalLink":false}],"displayItemsAsCategoryLink":false}]}]},{"title":"Blogs","url":"https://blogs.sap.com","subMenuRows":[{"subMenuLinkItems":[{"category":"","url":"","items":[{"title":"All Blog Posts","url":"https://blogs.sap.com","externalLink":false},{"title":"Write a Blog Post","url":"https://blogs.sap.com/wp-admin/post-new.php","externalLink":false},{"title":"How to Write a Blog Post","url":"https://community.sap.com/resources/blogging","externalLink":false},{"title":"Using Tags","url":"https://community.sap.com/resources/using-tags","externalLink":false},{"title":"Using Categories","url":"https://community.sap.com/resources/blogging#Using_categories","externalLink":false},{"title":"All Tags","url":"https://blogs.sap.com/tags/","externalLink":false}],"displayItemsAsCategoryLink":false}]}]},{"title":"Events","url":"","subMenuRows":[{"subMenuLinkItems":[{"category":"","url":"","items":[{"title":"All Events","url":"https://groups.community.sap.com/t5/events/ct-p/events","externalLink":true},{"title":"SAP Community","url":"https://groups.community.sap.com/t5/sap-community/eb-p/community-events","externalLink":true},{"title":"SAP CodeJam","url":"https://groups.community.sap.com/t5/sap-codejam/eb-p/codejam-events","externalLink":true},{"title":"SAP Community Calls","url":"https://groups.community.sap.com/t5/sap-community-calls/eb-p/community-calls","externalLink":true},{"title":"SAP Inside Track","url":"https://groups.community.sap.com/t5/sap-insidetrack/eb-p/insidetrack","externalLink":true},{"title":"SAP Stammtisch","url":"https://groups.community.sap.com/t5/sap-stammtisch/eb-p/stammtisch","externalLink":true},{"title":"SAP SuccessFactors","url":"https://groups.community.sap.com/t5/sap-successfactors/eb-p/successfactorsevents","externalLink":true},{"title":"User Groups","url":"https://groups.community.sap.com/t5/user-groups/eb-p/user-groups","externalLink":true}],"displayItemsAsCategoryLink":false}]}]},{"title":"Programs","url":"https://community.sap.com/programs","subMenuRows":[{"subMenuLinkItems":[{"category":"","url":"","items":[{"title":"Influencers","url":"https://community.sap.com/programs/influencer-programs","externalLink":false},{"title":"Spotlight Interviews","url":"https://community.sap.com/programs/spotlight-interviews","externalLink":false},{"title":"All Programs","url":"https://community.sap.com/programs","externalLink":false}],"displayItemsAsCategoryLink":false}]}]},{"title":"Resources","url":"https://community.sap.com/resources","subMenuRows":[{"subMenuLinkItems":[{"category":"","url":"","items":[{"title":"Getting Started","url":"https://developers.sap.com/tutorials/community-2022.html","externalLink":true},{"title":"Community Tutorials","url":"https://community.sap.com/resources/tutorials","externalLink":false},{"title":"Community Videos","url":"https://community.sap.com/resources/tip-in-a-minute#Videos","externalLink":false},{"title":"Community Voice Newsletter","url":"https://community.sap.com/voice-nl","externalLink":false},{"title":"Reputation","url":"https://community.sap.com/resources/reputation","externalLink":false},{"title":"Missions & Badges","url":"https://community.sap.com/resources/missions-badges","externalLink":false},{"title":"Moderation","url":"https://community.sap.com/resources/moderation","externalLink":false},{"title":"Rules of Engagement","url":"https://community.sap.com/resources/rules-of-engagement","externalLink":false},{"title":"All Resources","url":"https://community.sap.com/resources","externalLink":false}],"displayItemsAsCategoryLink":false}]}]},{"title":"What&apos;s New","url":"https://community.sap.com/resources/what-is-new","subMenuRows":[]}]'
+      explore-sap-link='{"title":"Explore SAP","subMenuRows":[{"subMenuLinkItems":[{"category":"Products","url":"https://www.sap.com/products.html","items":[{"title":"Business Network","url":"https://www.sap.com/products/business-network.html"},{"title":"Business Technology Platform","url":"https://www.sap.com/products/technology-platform.html"},{"title":"CRM and Customer Experience","url":"https://www.sap.com/products/crm.html"},{"title":"Enterprise Resource Planning","url":"https://www.sap.com/products/erp.html"},{"title":"Financial Management","url":"https://www.sap.com/products/financial-management.html"},{"title":"Human Capital Management","url":"https://www.sap.com/products/hcm.html"},{"title":"Small and Midsize Enterprises","url":"https://www.sap.com/products/sme-business-software.html"},{"title":"Spend Management","url":"https://www.sap.com/products/spend-management.html"},{"title":"Supply Chain Management","url":"https://www.sap.com/products/scm.html"},{"title":"Sustainability Management","url":"https://www.sap.com/sustainability.html"},{"title":"-","url":""},{"title":"View products A-Z","url":"https://www.sap.com/products/a-z.html"},{"title":"View Industries","url":"https://www.sap.com/industries.html"},{"title":"Trials and Demos","url":"https://www.sap.com/products/free-trials.html"},{"title":"-","url":""},{"title":"Partners","url":"https://www.sap.com/partners.html"},{"title":"-","url":""},{"title":"Services","url":"https://www.sap.com/services-support.html"}],"displayItemsAsCategoryLink":false},{"category":"Learning and Support","url":"","items":[{"title":"Learning and Certification","url":"https://learning.sap.com"},{"title":"Support","url":"https://support.sap.com"},{"title":"Documentation","url":"https://help.sap.com"},{"title":"Community","url":"https://community.sap.com/"}],"displayItemsAsCategoryLink":false},{"category":"About","url":"","items":[{"title":"Company Information","url":"https://www.sap.com/about/company.html"},{"title":"Careers","url":"https://jobs.sap.com/?utm_source=CareerSite&utm_campaign=CorpSite_HD"},{"title":"Customer Stories","url":"https://www.sap.com/about/customer-stories.html"},{"title":"Events","url":"https://www.sap.com/events.html"},{"title":"Investor Relations","url":"https://www.sap.com/investors/en.html"},{"title":"News Center","url":"https://news.sap.com/"},{"title":"Security and Trust","url":"https://www.sap.com/about/trust-center.html"}],"displayItemsAsCategoryLink":false}]}],"displayTitle":"Explore all areas of SAP"}'
+      landing-zone='{"title":"Community","url":"https://community.sap.com/"}'
+      profile='{"accountManagementUrl":"https://people.sap.com","links":[{"title":"Ask a Question","url":"https://answers.sap.com/questions/ask.html"},{"title":"Write a Blog Post","url":"https://blogs.sap.com/wp-admin/post-new.php"},{"title":"Activity Stream","url":"https://activities.sap.com"},{"title":"Send a Message","url":"https://messages.sap.com"},{"title":"Inbox","url":"https://people.sap.com/inbox"}]}'
+      search-config='{"disabled":false,"url":"https://community.sap.com/search/","placeholder":"Search the SAP Community","inputName":"q","queryParameters":{"ct":"all","searchReferrer":"contextual_navigation_development"}}'
+      on-country-selected='country => alert(country)'
+      country-selector-config='{"enabled":false,"searchDisabled":false,"regions":[]}'
+      hide-explore-sap-link='false'
+      avatar-source-url='https://avatars.services.sap.com/images'
+    ></ds-contextual-navigation>
+  </div><div class="announcements" role="menubar"><script type="text/javascript">function readAnnouncementCookie(n){const e=new RegExp("(?:(?:^|.*;\\s*)"+n+"\\s*\\=\\s*([^;]*).*$)|^.*$"),t=document.cookie.replace(e,"$1");if(t)try{var o=JSON.parse(decodeURIComponent(t))}catch(n){console.error(n)}return o}function initAnnouncement(n){const e={typeId:n.typeId,version:parseInt(n.version),startDate:new Date(n.startDate),endDate:new Date(n.endDate),containerId:n.containerId},t=new Date;if(t>=e.startDate&&t<e.endDate){const n="sap_comm_global_announcements",o=readAnnouncementCookie(n),a=e.typeId+"-"+e.version;if(!o||!o[a]||!o[a].closed){const o=document.getElementById(e.containerId);o.classList.remove("ds-global-announcement--hidden"),o.querySelector("span.ds-global-announcement__close-button").onclick=function(){o.classList.add("ds-global-announcement--hidden"),e.closed=!0;const c={};c[a]=e;const s=readAnnouncementCookie(n);if(s)for(var d in s)a!=d&&new Date(s[d].endDate)>=t&&(c[d]=s[d]);const i=new Date;i.setMonth(i.getMonth()+12);const r=document.location.hostname,m=r.lastIndexOf(".sap.com")==r.length-".sap.com".length?".sap.com":document.location.hostname;document.cookie=n+"="+JSON.stringify(c)+";expires="+i+";domain="+m+";path=/"}}}}</script><div class="ds-content-wrapper ds-global-announcement-wrapper"><div class="ds-flexGrid"><div class="ds-global-announcement ds-global-announcement--hidden" id="global-announcement"><div class="ds-flexGrid ds-global-announcement__content-wrapper"><div class="ds-flexRow ds-global-announcement__content-row"><div class="ds-global-announcement__icon-wrapper"><i class="ds-icon--exclamation-circle ds-global-announcement__icon"></i></div><div class="ds-global-announcement__details-wrapper ds-flexCol"><div class="ds-global-announcement__details"><div class="ds-global-announcement__title-wrapper"><span class="ds-global-announcement__title">SAP Community Log-in Update</span></div><div class="ds-global-announcement__description">In a few months, SAP Community will switch to SAP Universal ID as the only option to login. Don’t wait, create your SAP Universal ID now! If you have multiple S- or P- accounts, use the Consolidation Tool to merge your content.</div></div><a class="ds-button ds-button--primary ds-global-announcement__readmore" href="https://community.sap.com/resources/universal-id-faq" title="Get started with SAP Universal ID" target="_blank">Get started with SAP Universal ID</a></div></div></div><span class="ds-global-announcement__close-button" role="button" tabindex="0" aria-label="Click to close announcement"><i class="ds-icon--big ds-icon--close ds-global-announcement__close-icon"></i></span></div></div></div><script type="text/javascript">initAnnouncement({
+            typeId: 'global-announcement',
+            containerId: 'global-announcement',
+            version: 99,
+            startDate: '2023-07-26T15:19:04.000Z',
+            endDate: '2023-09-01T05:00:09.000Z'
+        });</script></div><div class="dm-wrapper dm-subheader dm-subheader--wrapper  dm-user--unauthenticated "><div class="dm-grid"><div class="dm-breadcrumb dm-user--unauthenticated" role="menubar">
+    <ul class="dm-breadcrumb-nav" role="navigation" aria-label="breadcrumb navigation to trace the path back to original landing point">
+        
+        <li><a id="comm-shdr-breadcrumb-home" href="https://www-qa.sap.com" title="Home">Home</a></li>
+        
+        <li><a id="comm-shdr-breadcrumb-community" href="https://community-qa.sap.com" title="Community">Community</a></li>
+        
+    </ul>
+    <ul class="dm-breadcrumb-actions" role="menu">
+        
+        <li><a id="comm-shdr-AskQuestion" href="https://answers-qa.sap.com/questions/ask.html" title="Ask a Question">Ask a Question</a></li>
+        
+        <li><a id="comm-shdr-WriteBlogPost" href="https://blogs-qa.sap.com/wp-admin/post-new.php" title="Write a Blog Post">Write a Blog Post</a></li>
+        
+        <li class="dm-user__login-button--wrapper"><a class="dm-button-small dm-button--primary" role="button" rel="IDS_login" aria-label="Login or Sign up. Click here to log in or sign up"><span class="dm-button-text">Login / Sign-up</span></a></li>
+        <li class="dm-breadcrumb-actions__dropdown">
+            <span id="comm-shdr-actions-opener" class="dm-breadcrumb-actions__dropdown-toggle" title="Community actions">
+                 <span class="dm-icon-encoded dm-icon-encoded--3dots"></span>
+            </span>
+            <ul id="comm-shdr-user-actions-ul" class="dm-breadcrumb-actions__dropdown-menu" role="menu">
+            </ul>
+        </li>
+    </ul>
+</div>
+</div></div>    <!-- #site-navigation -->
+
+</header>
+
+<!-- #masthead -->
+<div id="main" tabindex="0" class="wrapper">
+
+
+
+
+<div class="ds-blog-post-detail">
+<div class="ds-flexGrid">
+  <div class="ds-flexRow">
+    <div class="ds-flexCol">
+            <div class="ds-content-wrapper ds-blog-post__content-wrapper">
+        <h6 class="ds-heading ds-heading--xs ds-blog-post__sub-title"><span>Technical Articles</span></h6>
+        <div class="ds-flexRow">
+          <div class="ds-flexCol-sm-12 ds-flexCol-md-9">
+            
+<div class="ds-blog-post__body-wrapper">
+  <div class="ds-blog-post__content">
+    <div class="ds-blog-post__header-wrapper">
+      <a target="_blank" rel="noopener noreferrer" href="https://people.sap.com/yannick_schaper" class="ds-blog-post__avatar "  >
+        <img alt='Author&#039;s profile photo Yannick Schaper' src='https://avatars.services.sap.com/images/yannick_schaper.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />      </a>
+      <div class="ds-blog-post__author-info-wrapper">
+        <div class="ds-user ds-blog-post__author">
+          <a class="ds-link ds-user__name " href="https://people.sap.com/yannick_schaper" target="_blank" title="Yannick Schaper" aria-label="" rel="noopener noreferrer">Yannick Schaper</a>
+          <div class="ds-user__roles"><i class="ds-user__role ds-user__role--employee" title="This user is an SAP Employee" data-role-name="SAP Employee"></i></div>        </div>
+        <div class="ds-blog-post__meta-info">
+          <span class="ds-blog-post__date">February 25, 2021</span>
+          <span class="ds-blog-post__read-duration">7 minute read</span>
+        </div>
+      </div>
+    </div>
+    <h1 class="ds-heading ds-heading--m ds-blog-post__title">Hands-On Tutorial: Leverage SAP HANA Machine Learning in the Cloud through the Predictive Analysis Library</h1>
+    <div class="ds-blog-post__social-stats-wrapper">
+      <div class="ds-social-stats ">
+        <span class="ds-social-stats__stat">
+          <i class="ds-icon ds-icon--comments"></i>7        </span>
+        <span id="post-likes-counter" class="ds-social-stats__stat">
+          <i class="ds-icon ds-icon--likes-outline"></i>32        </span>
+        <span class="ds-social-stats__stat">
+          <i class="ds-icon ds-icon--views"></i>3,258        </span>
+      </div>
+          </div>
+    <div class="ds-blog-post__body ds-editor-content">
+      <p>The hard truth is that many machine learning projects fail to get set into production. It takes time and real effort to move from a machine learning model to a real business application. This is due to many different reasons, for example:</p>
+<ol>
+<li>Limited data access</li>
+<li>Poor data quality</li>
+<li>Small computing power</li>
+<li>No version control</li>
+</ol>
+<p>Of course, we can’t save the world with just one Hands-On tutorial, but we can at least try to make the life of a data scientist a little easier. <strong>In this blog post we will tackle these challenges by bringing the opensource world and SAP world together.</strong> In a nutshell, there will be no movement of training data from SAP HANA Cloud to our Python environment. In the following, we will refer to our SAP HANA Cloud simply as HANA. Of course, you can access the data and sample code under the following <a href="https://github.com/SAP-samples/hana-cloud-ml-challenges"  target="_blank" >GitHub repository</a>. But let us start from the beginning!</p>
+<ol>
+<li><strong>How can we directly access the data in our HANA? </strong></li>
+</ol>
+<p>As data scientists we feel very comfortable in our RStudio or Python Jupyter Notebooks. We want to stay in our used environment and don’t want to move around in too many different tools. Or even worse, we must copy the code or data from A to B, working on our local laptop with different csv files or other formats. Hence, the great news is that we can directly connect through the R &amp; Python clients with our HANA. Let us look at an example.</p>
+<p>In our Python script we first install and import the following library:</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/1-163.png" alt="" data-index="1" data-id="plbox-1284380" /></p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/2-59.png" alt="" data-index="2" data-id="plbox-1284380" /></p>
+<p>The <a href="https://pypi.org/project/hana-ml/"  target="_blank" >hana_ml library</a> enables us to directly connect to our HANA. To leverage it’s full potential we have to make sure that our user has the following policies assigned:</p>
+<ol>
+<li>AFL__SYS_AFL_AFLPAL_EXECUTE_WITH_GRANT_OPTION</li>
+<li>AFL__SYS_AFL_APL_AREA_EXECUTE</li>
+<li>AFLPM_CREATOR_ERASER_EXECUTE</li>
+</ol>
+<p>Set your HANA host, port, user, password and encrypt to true:</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/3-54.png" alt="" data-index="3" data-id="plbox-1284380" /></p>
+<p>Execute the following command to connect to your HANA:</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/4-45.png" alt="" data-index="4" data-id="plbox-1284380" /></p>
+<p>We can hide our login credentials through the <a href="https://help.sap.com/viewer/b3ee5778bc2e4a089d3299b82ec762a7/2.0.05/en-US/dd95ac9dbb571014a7d7f0234d762fdb.html"  target="_blank" >Secure User store</a> from the HANA client and don’t have them visible in clear text. In our command prompt we execute the following script:</p>
+<p>C:\Program Files\SAP\hdbclient&gt;hdbuserstore -i SET MYHANACLOUD “YOURENDPOINT:PORT” YOURUSERNAME</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/5-neu.png" alt="" data-index="5" data-id="plbox-1284380" /></p>
+<p>Then back in our Python script we can use the HANA key to connect:</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/6-41.png" alt="" data-index="6" data-id="plbox-1284380" /></p>
+<p>Now, let us upload a local dataset and push it directly into HANA. Make sure you change the path to your local directory.</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/7-37.png" alt="" data-index="7" data-id="plbox-1284380" /></p>
+<p>Before we bring our local dataset into HANA, we must execute some transformations. We change the columns to upper string and add a unique Product ID to the data. This ID will later be used as a key in our machine learning algorithms, which are directly running in our HANA.</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/8-34.png" alt="" data-index="8" data-id="plbox-1284380" /></p>
+<p>Next, let us create a HANA dataframe and point it to the table with the uploaded data.</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/9-31.png" alt="" data-index="9" data-id="plbox-1284380" /></p>
+<p>Great job! We tackled our first challenge in our machine learning use case. Since, we are now able to directly connect to our HANA from our used environment, let us move to the next task.</p>
+<ol start="2">
+<li><strong>How can we explore our data and react to data quality issues early? </strong></li>
+</ol>
+<p>Data understanding and preparation take up a lot off time during a machine learning use case. Increasing the data quality can drive every data scientist crazy, due to so many reasons. Hence, let us look at some options we have now through the hana_ml library. Right away our <a href="https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/2.0.04/en-US/hana_ml.dataframe.html"  target="_blank" >HANA dataframe</a> provides us with different functionalities. Therefore, let us control the data size and if all the variable types are set correctly:</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/10-36.png" alt="" data-index="10" data-id="plbox-1284380" /></p>
+<p>Our data upload was complete but since the variable Quality only contains 0s and 1s, it was falsely set to type integer. The variable is binary and labels all products of bad quality with a 1 and 0 otherwise. Since this is by definition a categorical variable, we transform it to type NVARCHAR with the following command.</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/11-33.png" alt="" data-index="11" data-id="plbox-1284380" /></p>
+<p>To better understand the data, we can derive a description of different statistical attributes or even get a whole <a href="https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/2.0.05/en-US/hana_ml.visualizers.html#dataset-report-label"  target="_blank" >data report</a> through the following commands:</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/12-34.png" alt="" data-index="12" data-id="plbox-1284380" /></p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/13-35.png" alt="" data-index="13" data-id="plbox-1284380" /></p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/14-27.png" alt="" data-index="14" data-id="plbox-1284380" /></p>
+<p>If we now find any errors, we have many different functions on hand, staying in our Python environment. For example, we can execute sql commands directly in our Python script or use many more functions available with our <a href="https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/2.0.04/en-US/hana_ml.dataframe.html"  target="_blank" >HANA dataframe</a>.</p>
+<ol start="3">
+<li><strong>How can we leverage the computing power of our HANA in our machine learning use case? </strong></li>
+</ol>
+<p>At some point we must bring the data and the algorithms together to train our machine learning models. Since our HANA is not only an in-memory database, we don’t have to collect the data into our local environment. Instead we can leverage the native machine learning libraries directly in our HANA. Therefore, let us split the data into a training and testing set through the <a href="https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/2.0.05/en-US/hana_ml.algorithms.pal.html"  target="_blank" >Predictive Analysis Library</a> (PAL).</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/15-18.png" alt="" data-index="15" data-id="plbox-1284380" /></p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/16-20.png" alt="" data-index="16" data-id="plbox-1284380" /></p>
+<p>Further, let us train and optimize a <a href="https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/2.0.04/en-US/hana_ml.algorithms.pal.html#hana_ml.algorithms.pal.trees.RandomForestClassifier"  target="_blank" >random forest algorithm</a> to classify the quality of a product. First, we set the numbers of trees very high, to see where the Out of Bag error converges. After optimizing the numbers of trees, we will take a closer look at the variables considered at each split.</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/17-18.png" alt="" data-index="17" data-id="plbox-1284380" /></p>
+<p>Now, we can apply our trained model on the testing set.</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/18-18.png" alt="" data-index="18" data-id="plbox-1284380" /></p>
+<p>For each observation we can see the predicted class and of course the confidence of our random forest model. In addition, we can compute the confusion matrix or a have a look at the variable importance.</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/19-19.png" alt="" data-index="19" data-id="plbox-1284380" /></p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/20-17.png" alt="" data-index="20" data-id="plbox-1284380" /></p>
+<p>The idea is to keep the heavy lifting in our HANA and only collect small sets to for example evaluate our random forest model. Therefore, we can collect the OOB error and use opensource libraries to visualize the results:</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/21-12.png" alt="" data-index="21" data-id="plbox-1284380" /></p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/22-12.png" alt="" data-index="22" data-id="plbox-1284380" /></p>
+<p>Our trained model converges after around 700 trees. Hence, let us set the parameter to 801 trees to leave a little buffer. Further, let us optimize the number of variables considered at each split by iterating through each possible value.</p>
+<p><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/23-12.png" alt="" data-index="23" data-id="plbox-1284380" /></p>
+<p style="overflow: hidden;margin-bottom: 0px">Let’s plot the result:</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/24-14.png" alt="" data-index="24" data-id="plbox-1284380" /></p>
+<p>After 2 variables considered at each split the error increases and we must be careful not to overfit the data. Therefore, let us train our optimal random forest model.</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/25-11.png" alt="" data-index="25" data-id="plbox-1284380" /></p>
+<p>Congratulation, you created your first machine learning model directly in HANA. Now, let’s move to our last pain point.</p>
+<ol start="4">
+<li><strong>How can we save and create different versions of our results? </strong></li>
+</ol>
+<p>After the evaluation of our machine learning model a last very crucial step is still missing. We must deploy our model into the IT landscape and make our new insights accessible to the business, such that they can incorporate this information into their decision making. Our huge advantage is now that our machine learning model already resides in HANA. We can create a <a href="https://help.sap.com/doc/1d0ebfe5e8dd44d09606814d83308d4b/2.0.04/en-US/hana_ml.model_storage.html"  target="_blank" >Model Storage</a> where we can save our trained model and load it again for consumption. Hence, please execute the following script:</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/26-9.png" alt="" data-index="26" data-id="plbox-1284380" /></p>
+<p>Let’s view the saved model in our model storage.</p>
+<p style="overflow: hidden;margin-bottom: 0px"><img class="aligncenter ds-lightbox__img" decoding="async" src="https://blogs.sap.com/wp-content/uploads/2021/02/27-11.png" alt="" data-index="27" data-id="plbox-1284380" /></p>
+<p>Of course, we can now save additional tables created based on our model and consume them in different frontend tools like the SAP Analytics Cloud. For example, have a look at the following blogs:</p>
+<ul>
+<li><a href="https://www.sapanalytics.cloud/guided_playlists/design-formatting-and-aesthetics/"  target="_blank" >Story design, formatting, and aesthetics</a></li>
+<li><a href="https://www.sapanalytics.cloud/learning/"  target="_blank" >SAP Analytics Cloud Learning</a></li>
+<li><a href="https://saphanajourney.com/sap-analytics-cloud/learning-article/hands-on-tutorial-sap-analytics-cloud-r-visualization/"  target="_blank" >Hands-On Tutorial SAP Analytics Cloud, R Visualization</a></li>
+</ul>
+<p>In addition, if you like to try the <a href="https://help.sap.com/viewer/3c53bc7b58934a9795b6dd8c7e28cf05/2020_04_QRC/en-US/2e7660d216144e78bb809ce0f9c6382a.html"  target="_blank" >Automated Predictive Library (APL)</a> or are a big R fan, try out the following Hands-On tutorials:</p>
+<ul>
+<li><a href="https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/" >Hands-On Tutorial: Automated Predictive (APL) in SAP HANA Cloud</a></li>
+<li><a href="https://blogs.sap.com/2020/05/29/hands-on-tutorial-leverage-sap-hana-embedded-machine-learning-through-an-r-shiny-app/" >Hands-On Tutorial: Leverage SAP HANA embedded Machine Learning through an R Shiny App</a></li>
+<li><a href="https://blogs.sap.com/2020/06/10/hands-on-tutorial-becoming-the-chief-data-cook-with-rstudio-and-sap-hana/" >Hands-On Tutorial: Becoming the Chief Data Cook with RStudio and SAP HANA</a></li>
+</ul>
+<p>I hope this blog post helped you to get started with your own SAP Machine Learning use cases. I encourage you to try it yourself and bring more machine learning into production.</p>
+<p>I want to thank <a href="https://people.sap.com/andreas.forster"  target="_blank" >Andreas Forster</a>, <a href="https://people.sap.com/christoph.morgen"  target="_blank" >Christoph Morgen</a> and <a href="https://people.sap.com/sarah.detzler"  target="_blank" >Sarah Detzler</a> for their support while writing this Hands-On tutorial.</p>
+<p>Cheers!</p>
+<p>Yannick Schaper</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+    </div>
+  </div>
+  <div class="ds-blog-post__social-side-bar">
+    <div class="ds-sticky-on-scroll ">
+      <div class="ds-sticky-on-scroll__wrapper  ">
+        <div class="ds-sticky-on-scroll__content">
+          <div class="ds-blog-post__social-actions">
+            <button class="sap-button-follow ds-button ds-button--primary ds-blog-post__social-action ds-blog-post__social-action--follow" id="sap-button-follow-hdr-id" onclick="location.href='https://blogs.sap.com/wp-login.php?redirect_to=https%3A%2F%2Fblogs.sap.com%2F2021%2F02%2F25%2Fhands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library%2F%3Fs_action%3Dss_change_follow_status%26nonce%3D3be0b14985'" rel="IDS_login"  type="button" data-content-type="blogpost" data-content-id="1284380" data-nonce="3be0b14985" title="Please log into the system to use follow/unfollow functionality."><span class="ds-button-text">Follow</span></button>            <button type='button' class='ds-button ds-button--secondary ds-button--icon-button ds-blog-post__social-action likes-post-link dolike ' rel='IDS_login' onclick="location.href='https://blogs.sap.com/wp-login.php?redirect_to=https%3A%2F%2Fblogs.sap.com%2F2021%2F02%2F25%2Fhands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library%2F%3Fs_action%3Dss_change_like_status%26nonce%3D98f2cce5d7'" title='Like' data-nonce='98f2cce5d7' data-post-id='1284380'><i class='ds-icon ds-icon--likes-outline ds-icon--regular ds-m-r-xs' tabindex='-1'></i><span class='ds-button-text'>Like</span></button>            <button type="button" class="ds-button ds-button--secondary ds-button--icon-button ds-blog-post__social-action" title="RSS Feed" onclick="location.href='https://blogs.sap.com/2021/02/25/hands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library/feed/'">
+              <i class="ds-icon ds-icon--rss-feed ds-icon--regular ds-m-r-xs" tabindex="-1"></i>RSS Feed
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+            <div class="ds-blog-post__social-row">
+              <div class="ds-blog-post__social-icons">
+                <a href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblogs.sap.com%2F2021%2F02%2F25%2Fhands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library%2F' title='Share on Facebook' target='_blank'><span class='ds-social-icon ds-social-icon--dark-facebook'></span></a><a href='https://twitter.com/share?url=https%3A%2F%2Fblogs.sap.com%2F2021%2F02%2F25%2Fhands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library%2F&text=Hands-On+Tutorial%3A+Leverage+SAP+HANA+Machine+Learning+in+the+Cloud+through+the+Predictive+Analysis+Library' title='Share on Twitter' target='_blank'><span class='ds-social-icon ds-social-icon--dark-twitter'></span></a><a href='https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fblogs.sap.com%2F2021%2F02%2F25%2Fhands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library%2F&title=Hands-On+Tutorial%3A+Leverage+SAP+HANA+Machine+Learning+in+the+Cloud+through+the+Predictive+Analysis+Library' title='Share on LinkedIn' target='_blank'><span class='ds-social-icon ds-social-icon--dark-linkedin'></span></a>              </div>
+              <div class='ds-tooltip__wrapper'>
+    <div class='ds-tooltip__anchor'>
+    <button
+      type="button"
+      class="ds-button ds-button--secondary ds-blog-post__alert-moderator-button ds-button--disabled"
+      aria-label="Alert Moderator"
+      data-toggle="collapse"
+      data-hide-class="ds-collapse"
+      data-triggers=".alertModerator"
+      aria-expanded="false">Alert Moderator
+    </button>
+    </div>
+    <div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Alerting is not available for unauthorized users</div>
+</div>
+            </div>
+            
+  <div class="wprc-content-v3">
+    <div class="ds-blog-post-form ds-blog-post__alert-moderator-form ds-collapse alertModerator wprc-form-v3" data-toggle="collapseComponent" data-name="alertModerator">
+          </div>
+  </div>
+          </div>
+          <div class="ds-blog-post__right-side-bar ds-flexCol-sm-12 ds-flexCol-md-3">
+            <div id="sapassignedtagswidget-v3-2" class="ds-side-bar-widget ds-assigned-tags ds-m-b-l"><h3 class="ds-side-bar-widget__heading">Assigned Tags</h3></div><div id="sap-relatedcontent-widget-v3-2" class="ds-side-bar-widget widget_sap-relatedcontent-widget-v3"><button type="button" class="ds-side-bar-widget__heading ds-side-bar-widget__heading--collapsible" aria-expanded="true">Similar Blog Posts<i class="ds-icon ds-icon--arrow-up ds-icon--big" tabindex="-1"></i></button><div class="ds-side-bar-widget__content"><ul class="ds-relatedContent ds-relatedContent__list" data-types="blogpost" data-limit="3"></ul></div></div><div id="sap-relatedcontent-widget-v3-3" class="ds-side-bar-widget widget_sap-relatedcontent-widget-v3"><button type="button" class="ds-side-bar-widget__heading ds-side-bar-widget__heading--collapsible" aria-expanded="true">Related Questions<i class="ds-icon ds-icon--arrow-up ds-icon--big" tabindex="-1"></i></button><div class="ds-side-bar-widget__content"><ul class="ds-relatedContent ds-relatedContent__list" data-types="question" data-limit="3"></ul></div></div>          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="content-lightbox-modal"aria-modal="true" aria-label="Lightbox gallery opened" role="dialog" tabindex="-1" class="ds-lightbox" data-id="plbox-1284380"><div class="ds-lightbox__box"><div class="ds-lightbox__slideNumber"><span class="ds-lightbox__slideNumber--current"></span>/<span class="ds-lightbox__slideNumber--total"></span></div><div class="ds-lightbox__header"><a href="javascript:void(0);" data-id="plbox-1284380" class="ds-lightbox__headerIcon ds-icon-encoded--close" aria-label="Close lightbox"></a></div><div class="ds-lightbox__content--scrollable ds-lightbox__content"><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/1-163.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/2-59.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/3-54.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/4-45.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/5-neu.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/6-41.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/7-37.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/8-34.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/9-31.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/10-36.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/11-33.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/12-34.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/13-35.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/14-27.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/15-18.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/16-20.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/17-18.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/18-18.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/19-19.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/20-17.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/21-12.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/22-12.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/23-12.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/24-14.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/25-11.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/26-9.png" alt=""/></div><div class="ds-lightbox__slide"><img class="ds-lightbox__slide--img" src="https://blogs.sap.com/wp-content/uploads/2021/02/27-11.png" alt=""/></div><a class="lightbox-gallery-button--prev ds-lightbox__gallery-button ds-icon ds-icon--arrow-left" href="javascript:void(0);" aria-label="Show previous image"></a><a class="ds-lightbox__gallery-button lightbox-gallery-button--next ds-icon ds-icon--arrow-right" href="javascript:void(0);" aria-label="Show next image"></a></div><div class="zoom-buttons"><a class="ds-lightbox__zoom-out" href="javascript:void(0);" aria-label="Enter to zoom out"><i class="ds-icon ds-icon--minus"></i></a><a class="ds-lightbox__zoom-in" href="javascript:void(0);" aria-label="Enter to zoom in"><i class="ds-icon ds-icon--plus"></i></a></div></div></div>
+  <div class="ds-blog-post__comment-section">
+    <div class="ds-flexGrid">
+      <div class="ds-flexRow">
+        <div class="ds-flexCol-12 ds-flexCol-md-10 ds-flexCol-lg-10">
+          
+<div id="comments" class="ds-blog-post-comments">
+  
+      <div class="ds-blog-post-comments__counter" title="Number of Comments">
+      7 Comments      </div>
+              <div class="dm-section dm-align-center dm-section-header__title" title="Please log on to comment" aria-role="alert">
+                You must be <a href="https://blogs.sap.com/wp-login.php?redirect_to=2021/02/25/hands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library" class="opener js-idspopup" rel="IDS_login" title="Log On">Logged on</a> to comment or reply to a post.
+        </div>
+      
+    <div class="ds-blog-post-comments__list">
+              <div class="comment byuser comment-author-mirkan even thread-even depth-1 ds-blog-post-comment" id="li-comment-558020">
+        <div id="comment-558020" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/mirkan">
+                <img alt='Author&#039;s profile photo Mirkan Albayrak' src='https://avatars.services.sap.com/images/mirkan_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Mirkan Albayrak' href='https://people.sap.com/mirkan' rel='external nofollow' class='ds-link ds-user__name ' >Mirkan Albayrak</a>  <div class="ds-user__roles"><i class="ds-user__role ds-user__role--employee" title="This user is an SAP Employee" data-role-name="SAP Employee"></i></div>                </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2021-02-25T07:46:10+00:00"
+                >February 25, 2021 at 7:46 am</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Great tutorial, Yannick! Very insightful and easy to follow!</p>
+              </div>
+
+            <div id="comment-actions-558020" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_558020" tabindex="-1">Like 1</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2021/02/25/hands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library/#comment-558020'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            </div><!-- #comment-## -->
+    <div class="comment byuser comment-author-manuelnamyslo odd alt thread-odd thread-alt depth-1 ds-blog-post-comment" id="li-comment-558037">
+        <div id="comment-558037" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/manuel.namyslo">
+                <img alt='Author&#039;s profile photo Manuel Namyslo' src='https://avatars.services.sap.com/images/manuel.namyslo_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Manuel Namyslo' href='https://people.sap.com/manuel.namyslo' rel='external nofollow' class='ds-link ds-user__name ' >Manuel Namyslo</a>  <div class="ds-user__roles"><i class="ds-user__role ds-user__role--employee" title="This user is an SAP Employee" data-role-name="SAP Employee"></i></div>                </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2021-02-25T08:56:40+00:00"
+                >February 25, 2021 at 8:56 am</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Great Blog Yannick!</p>
+              </div>
+
+            <div id="comment-actions-558037" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_558037" tabindex="-1">Like 1</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2021/02/25/hands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library/#comment-558037'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            </div><!-- #comment-## -->
+    <div class="comment byuser comment-author-raulziegler even thread-even depth-1 ds-blog-post-comment" id="li-comment-558121">
+        <div id="comment-558121" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/raulziegler">
+                <img alt='Author&#039;s profile photo Raul Ziegler' src='https://avatars.services.sap.com/images/raulziegler_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Raul Ziegler' href='https://people.sap.com/raulziegler' rel='external nofollow' class='ds-link ds-user__name ' >Raul Ziegler</a>  <div class="ds-user__roles"><i class="ds-user__role ds-user__role--employee" title="This user is an SAP Employee" data-role-name="SAP Employee"></i></div>                </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2021-02-25T14:10:42+00:00"
+                >February 25, 2021 at 2:10 pm</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Great Blog, Yannick, time well spent 🙂</p>
+              </div>
+
+            <div id="comment-actions-558121" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_558121" tabindex="-1">Like 1</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2021/02/25/hands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library/#comment-558121'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            </div><!-- #comment-## -->
+    <div class="comment byuser comment-author-andreasforster odd alt thread-odd thread-alt depth-1 ds-blog-post-comment" id="li-comment-558143">
+        <div id="comment-558143" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/andreas.forster">
+                <img alt='Author&#039;s profile photo Andreas Forster' src='https://avatars.services.sap.com/images/andreas.forster_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Andreas Forster' href='https://people.sap.com/andreas.forster' rel='external nofollow' class='ds-link ds-user__name ' >Andreas Forster</a>  <div class="ds-user__roles"><i class="ds-user__role ds-user__role--employee" title="This user is an SAP Employee" data-role-name="SAP Employee"></i></div>                </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2021-02-25T15:16:09+00:00"
+                >February 25, 2021 at 3:16 pm</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Excellent example how Data Scientists can stay in Python and still have HANA do the heavy lifting!!</p>
+              </div>
+
+            <div id="comment-actions-558143" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_558143" tabindex="-1">Like 1</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2021/02/25/hands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library/#comment-558143'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            </div><!-- #comment-## -->
+    <div class="comment byuser comment-author-deanfarrow even thread-even depth-1 ds-blog-post-comment" id="li-comment-559502">
+        <div id="comment-559502" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/dean.farrow">
+                <img alt='Author&#039;s profile photo Dean Farrow' src='https://avatars.services.sap.com/images/dean.farrow_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Dean Farrow' href='https://people.sap.com/dean.farrow' rel='external nofollow' class='ds-link ds-user__name ' >Dean Farrow</a>  <div class="ds-user__roles"><i class="ds-user__role ds-user__role--employee" title="This user is an SAP Employee" data-role-name="SAP Employee"></i></div>                </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2021-03-04T13:02:10+00:00"
+                >March 4, 2021 at 1:02 pm</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Excellent blog - very clear and makes a lot of sense</p>
+              </div>
+
+            <div id="comment-actions-559502" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_559502" tabindex="-1">Like 1</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2021/02/25/hands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library/#comment-559502'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            </div><!-- #comment-## -->
+    <div class="comment byuser comment-author-sapstudent odd alt thread-odd thread-alt depth-1 ds-blog-post-comment" id="li-comment-563635">
+        <div id="comment-563635" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/sapstudent">
+                <img alt='Author&#039;s profile photo Somnath Paul' src='https://avatars.services.sap.com/images/sapstudent_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Somnath Paul' href='https://people.sap.com/sapstudent' rel='external nofollow' class='ds-link ds-user__name ' >Somnath Paul</a>                  </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2021-03-27T16:05:07+00:00"
+                >March 27, 2021 at 4:05 pm</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <p>Thank you! This is really an informative blog for me. Thanks for sharing.</p>
+              </div>
+
+            <div id="comment-actions-563635" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_563635" tabindex="-1">Like 1</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2021/02/25/hands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library/#comment-563635'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            </div><!-- #comment-## -->
+    <div class="comment byuser comment-author-hcico79 even thread-even depth-1 ds-blog-post-comment" id="li-comment-563660">
+        <div id="comment-563660" class="ds-blog-post-comment__wrapper">
+                    <div class="ds-blog-post-comment__header">
+              <a class="ds-blog-post-comment__avatar" target="_blank" rel="noopener noreferrer" href="https://people.sap.com/hcico79">
+                <img alt='Author&#039;s profile photo Hakan Ates' src='https://avatars.services.sap.com/images/hcico79_small.png' class='avatar avatar-48 photo ds-avatar-component ds-avatar-component--small' height='48' width='48' />              </a>
+              <div class="ds-blog-post-comment__meta-info">
+                <div class="ds-user ds-blog-post-comment__author">
+                  <a target='_blank' aria-label='Author name Hakan Ates' href='https://people.sap.com/hcico79' rel='external nofollow' class='ds-link ds-user__name ' >Hakan Ates</a>                  </div>
+                <span class="ds-blog-post-comment__date"><time datetime="2021-03-28T08:57:47+00:00"
+                >March 28, 2021 at 8:57 am</time></span>
+              </div>
+            </div>
+
+            <div class="ds-blog-post-comment__body">
+              <div class="ds-blog-post-comment__content ds-editor-content">
+                <pre id="tw-target-text" class="tw-data-text tw-text-large XcVN5d tw-ta" data-placeholder="Übersetzung"><span lang="en">really really good !!!! Thany you!!!</span></pre>
+              </div>
+
+            <div id="comment-actions-563660" class="comment-actions ds-blog-post-comment__actions">
+                <ul class="ds-content-actionbar ds-actionbar--links" role="menubar" aria-label="action menu">
+                    <!-- render like, reply, edit, delete links -->
+                    <li class='ds-content-actionbar__item'><span class='ds-link ds-button--link ds-content-actionbar__link ds-button--disabled'><div class="ds-button__inner-container " id="nbLikeComment_563660" tabindex="-1">Like 1</span></span></li><li class='ds-content-actionbar__item'><div class='ds-tooltip__wrapper'><div class='ds-tooltip__anchor'><a class='ds-link ds-button--link ds-content-actionbar__link'  href='https://blogs.sap.com/2021/02/25/hands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library/#comment-563660'>Share</a></div><div role='tooltip' class='ds-tooltip ds-tooltip--bottom'>Right click and copy the link to share this comment</div></div></li>                </ul>
+                <div class="ds-actionbar--forms"></div>
+            </div>
+          </div>
+        </div>
+            </div><!-- #comment-## -->
+
+      
+        </div> <!-- main comments content area -->
+
+    
+            
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+                </div> <!-- #main -->
+                <div id="shared_footer" class="dm-container dm-wrapper">
+                    <footer class="dm-footer">
+    <div class="dm-footer__inner-wrapper">
+        <div class="dm-socialmedia">
+            <h5 class="dm-socialmedia__headline" id="hl-sharefollow">Find us on</h5>
+            <ul class="dm-socialmedia__links" aria-labelledby="hl-sharefollow">
+                <li><a href="https://www.facebook.com/sapcommunity" title="Facebook"><span class="dm-icon-encoded--facebook"></span></a></li>
+                <li><a href="https://twitter.com/SAPCommunity" title="Twitter"><span class="dm-icon-encoded--twitter"></span></a></li>
+                <li><a href="https://www.youtube.com/c/SAPCommunities" title="YouTube"><span class="dm-icon-encoded--youtube"></span></a></li>
+                <li><a href="https://www.linkedin.com/company/sap" title="LinkedIn"><span class="dm-icon-encoded--linkedin"></span></a></li>
+                <li><a href="https://instagram.com/sap/" title="Instagram"><span class="dm-icon-encoded--instagram"></span></a></li>
+                <li><a href="http://www.slideshare.net/SAP" title="Slideshare"><span class="dm-icon-encoded--slideshare"></span></a></li>
+                <li><a href="mailto:?subject='SAP Community'" title="Email Share"><span class="dm-icon-encoded--email"></span></a></li>
+            </ul>
+        </div>
+        <nav role="navigation" class="dm-footer__navigation">
+            <ul class="dm-footer__navigation__list" aria-label="footer navigation">
+                <li><a href="https://community.sap.com/resources/sap-community-privacy-statement" target="_blank">Privacy</a></li>
+                <li><a href="http://sap.com/corporate/en/legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
+                <li><a href="http://sap.com/about/legal/impressum.html" target="_blank">Legal Disclosure</a></li>
+                <li><a href="http://sap.com/about/legal/copyright.html" target="_blank">Copyright</a></li>
+                <li><a href="http://sap.com/about/legal/trademark.html" target="_blank">Trademark</a></li>
+                <li id="teconsent"></li>
+                <li><a href="https://www.sap.com/cmp/nl/sap-community-voice/index.html" target="_blank">Newsletter</a></li>
+                <li><a href="https://community.sap.com/support" target="_blank">Support</a></li>
+            </ul>
+        </nav>
+    </div>
+</footer>                </div>
+            </div> <!-- #page -->
+            <script type="application/ld+json" data-schema="1284380-post-Default">{"@context":"https:\/\/schema.org\/","@type":"BlogPosting","@id":"https:\/\/blogs.sap.com\/2021\/02\/25\/hands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library\/#BlogPosting","mainEntityOfPage":"https:\/\/blogs.sap.com\/2021\/02\/25\/hands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library\/","headline":"Hands-On Tutorial: Leverage SAP HANA Machine Learning in the Cloud through the Predictive Analysis Library","name":"Hands-On Tutorial: Leverage SAP HANA Machine Learning in the Cloud through the Predictive Analysis Library","description":"The hard truth is that many machine learning projects fail to get set into production. It takes time and real effort to move from a machine learning model to a real business application. This is [&hellip;]","datePublished":"2021-02-25","dateModified":"2021-02-25","author":{"@type":"Person","@id":"https:\/\/blogs.sap.com\/author\/yannick_schaper\/#Person","name":"Yannick Schaper","url":"https:\/\/blogs.sap.com\/author\/yannick_schaper\/","image":{"@type":"ImageObject","@id":"https:\/\/avatars.services.sap.com\/images\/yannick_schaper_small.png","url":"https:\/\/avatars.services.sap.com\/images\/yannick_schaper_small.png","height":96,"width":96}},"publisher":{"@type":"Organization","name":"SAP Community Blogs","logo":{"@type":"ImageObject","@id":"https:\/\/blogs.sap.com\/wp-content\/uploads\/2020\/03\/SAP_scrn_R-2.png","url":"https:\/\/blogs.sap.com\/wp-content\/uploads\/2020\/03\/SAP_scrn_R-2.png","width":600,"height":60}},"image":{"@type":"ImageObject","@id":"https:\/\/blogs.sap.com\/wp-content\/uploads\/2021\/02\/1-163.png","url":"https:\/\/blogs.sap.com\/wp-content\/uploads\/2021\/02\/1-163.png","height":"","width":""},"url":"https:\/\/blogs.sap.com\/2021\/02\/25\/hands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library\/","about":["Technical Articles"],"wordCount":1310,"keywords":["datascience","hana_ml","hana_ml.visualizers"]}</script>
+<script type="application/ld+json" data-schema="Breadcrumb">{"@context":"https:\/\/schema.org\/","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"2021","item":"https:\/\/blogs.sap.com\/2021\/#breadcrumbitem"},{"@type":"ListItem","position":2,"name":"02","item":"https:\/\/blogs.sap.com\/2021\/\/02\/#breadcrumbitem"},{"@type":"ListItem","position":3,"name":"25","item":"https:\/\/blogs.sap.com\/2021\/\/02\/\/25\/#breadcrumbitem"},{"@type":"ListItem","position":4,"name":"Hands-On Tutorial: Leverage SAP HANA Machine Learning in the Cloud through the Predictive Analysis Library","item":"https:\/\/blogs.sap.com\/2021\/02\/25\/hands-on-tutorial-leverage-sap-hana-machine-learning-in-the-cloud-through-the-predictive-analysis-library\/#breadcrumbitem"}]}</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-comment-editor/js/action-tooltip-handler.min.js' id='tooltip-handler-js'></script>
+<script type='text/javascript' id='unified_header-js-extra'>
+/* <![CDATA[ */
+var headerInitArgs = {"system":"blogs","wrapperID":"page","breadcrumbItems":[{"text":"Blogs","href":"https:\/\/blogs.sap.com"}]};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://static.community.services.sap/com-hdr/v10/282.116.60/shared-ui/1dx-assets/js/scn-header.min.js' id='unified_header-js'></script>
+<script type='text/javascript' id='unified_header-js-after'>
+            scnHeader.init(headerInitArgs);
+            setCookie("userArgs", headerInitArgs.user ? JSON.stringify(headerInitArgs.user) : "", { path : "/" });
+    
+</script>
+<script type='text/javascript' src='https://static.community.services.sap/designmate/v3/241/latest/header.js' id='designmate_header_script-js'></script>
+<script type='text/javascript' src='https://static.community.services.sap/designmate/v3/241/latest/subheader.js' id='designmate_subheader_script-js'></script>
+<script type='text/javascript' src='https://static.community.services.sap/designmate/v3/241/latest/designmate.js' id='designmate_script-js'></script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-includes/js/comment-reply.min.js' id='comment-reply-js'></script>
+<script type='text/javascript' id='satm_handler-js-extra'>
+/* <![CDATA[ */
+var satmContentSelectors = ["div.dm-contentDetail__body-content","div.dm-list-comments__item-content","div.ds-blog-post__body","div.ds-blog-post-comment__content"];
+var satmProfileBaseUrl = "people.sap.com\/";
+var satmUssUrl = "https:\/\/uss.api.community.sap.com";
+var satmChangeableElementsSelectors = ["div.dm-list-comments__item-content","div.ds-blog-post-comment__content"];
+var satmPluginEnabled = "1";
+var satmApiUrl = "https:\/\/uss.api.community.sap.com";
+var satmApiCallWithCredentials = "1";
+var satmRequestDelayMs = "100";
+/* ]]> */
+</script>
+<script type='text/javascript' defer src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-at-mention/js/sap-at-mention.min.js' id='satm_handler-js'></script>
+<script type='text/javascript' id='sap-comment-validation-js-extra'>
+/* <![CDATA[ */
+var commentValidation = {"validateMaxLinks":"1","max_links_number":"7","BLOGS_PAGE":"single"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-comment-editor/js/sap-comment-validation.min.js' id='sap-comment-validation-js'></script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-core-custom/include/js/sap-post-status.min.js' id='scn_post_status_check-js'></script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/themes/sap-v3-neo/js/jquery-plugins.min.js' id='sap_jquery_plugins-js'></script>
+<script type='text/javascript' id='sap-login-csrf-cookie-js-extra'>
+/* <![CDATA[ */
+var sapLoginCookieConfig = {"cookieName":"SAP_BLOGS_ANONYMOUS_NONCE","sapActionName":"s_action"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-core-custom/include/js/sap-login-csrf-cookie.min.js' id='sap-login-csrf-cookie-js'></script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-core-custom/include/js/sap-eddl.min.js' id='sap_eddl-js'></script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-lightbox-gallery/lib/lightbox-gallery.min.js' id='sap_lightbox_gallery_js-js'></script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/themes/sap-v3-neo/js/choices.min.js' id='choices.js-js'></script>
+<script type='text/javascript' id='wprc-script-js-extra'>
+/* <![CDATA[ */
+var wprcajaxhandler = {"ajaxurl":"https:\/\/blogs.sap.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-report-content/static/js/v3/scripts.min.js' id='wprc-script-js'></script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/themes/sap-v3-neo/js/single.min.js' id='sap_single_v3-js'></script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/themes/sap-v3-neo/js/onscroll-sticky.min.js' id='onscroll_sticky-js'></script>
+<script type='text/javascript' id='blog-detail-page-js-extra'>
+/* <![CDATA[ */
+var alertReasonsSelectArgs = {"selectId":"sap-blog-alert-reasons","reasons":["Incorrect Tag\/Category\r","Cross-Posting\r","Private Information\r","Unprofessional Conduct\r","Spam"]};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/themes/sap-v3-neo/dist/blog-detail.min.js' id='blog-detail-page-js'></script>
+<script type='text/javascript' id='sap_assignedtags_widget_js_v3-js-extra'>
+/* <![CDATA[ */
+var assignedTagsWidgetSettings = {"maxItemsBeforeHide":"7","data":{"Machine Learning":"https:\/\/blogs.sap.com\/tags\/240174591523510321507492941674121\/","Big Data":"https:\/\/blogs.sap.com\/tags\/139269250608756787992873\/","Data and Analytics":"https:\/\/blogs.sap.com\/tags\/87817424-f4e7-46f2-af14-88bf0f4ba034\/","Python":"https:\/\/blogs.sap.com\/tags\/f220d74d-56e2-487e-8e6c-a8cb3def2378\/","SAP HANA":"https:\/\/blogs.sap.com\/tags\/73554900100700000996\/","SAP HANA Cloud":"https:\/\/blogs.sap.com\/tags\/73554900100800002881\/","datascience":"https:\/\/blogs.sap.com\/tag\/datascience\/","hana_ml":"https:\/\/blogs.sap.com\/tag\/hana_ml\/","hana_ml.visualizers":"https:\/\/blogs.sap.com\/tag\/hana_ml.visualizers\/"},"widgetClassname":".ds-assigned-tags"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-widgets/include/assigned-tags/js/sap-assigned-tags-widget.min.js' id='sap_assignedtags_widget_js_v3-js'></script>
+<script type='text/javascript' id='sap_relatedcontent_widget_js_v3-js-extra'>
+/* <![CDATA[ */
+var relatedContentWidgetSettings = {"widgetSelector":".widget_sap-relatedcontent-widget-v3","dataSourceServiceUrl":"https:\/\/searchproxy.api.community.sap.com\/api\/v1\/search\/similar-content","profileUrl":"https:\/\/people.sap.com","targetContentItem":{"id":1284380,"type":"blogpost","title":"Hands-On Tutorial: Leverage SAP HANA Machine Learning in the Cloud through the Predictive Analysis Library","primary_tag":"240174591523510321507492941674121"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://blogs.sap.com/res1dx-598/wp-content/plugins/sap-widgets/include/related-content/js/sap-related-content-widget.min.js' id='sap_relatedcontent_widget_js_v3-js'></script>
+<div id="wp-load_tinymce-wrap" class="wp-core-ui wp-editor-wrap html-active"><link rel='stylesheet' id='dashicons-css' href='https://blogs.sap.com/res1dx-598/wp-includes/css/dashicons.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='editor-buttons-css' href='https://blogs.sap.com/res1dx-598/wp-includes/css/editor.min.css' type='text/css' media='all' />
+<style>#wp-load_tinymce-wrap {display:none;}</style>
+<div id="wp-load_tinymce-editor-container" class="wp-editor-container"><div id="qt_load_tinymce_toolbar" class="quicktags-toolbar"></div><textarea class="wp-editor-area" rows="20" cols="40" name="load_tinymce" id="load_tinymce"></textarea></div>
+</div>
+
+<link rel='preload' href='https://blogs.sap.com/wp-includes/js/tinymce/skins/lightgray/skin.min.css?wp-mce-49110-20201110' as='style'><link rel='preload' href='https://blogs.sap.com/wp-includes/js/tinymce/plugins/codesample/css/prism.css' as='style'><link rel='preload' href='https://blogs.sap.com/wp-includes/js/tinymce/skins/lightgray/content.min.css?wp-mce-49110-20201110' as='style'>
+		<script type="text/javascript">
+		tinyMCEPreInit = {
+			baseURL: "https://blogs.sap.com/wp-includes/js/tinymce",
+			suffix: ".min",
+						mceInit: {},
+			qtInit: {'load_tinymce':{id:"load_tinymce",buttons:"strong,em,link,block,del,ins,img,ul,ol,li,code,more,close"}},
+			ref: {plugins:"",theme:"modern",language:""},
+			load_ext: function(url,lang){var sl=tinymce.ScriptLoader;sl.markDone(url+'/langs/'+lang+'.js');sl.markDone(url+'/langs/'+lang+'_dlg.js');}
+		};
+		</script>
+				<script type="text/javascript">
+		var ajaxurl = "/wp-admin/admin-ajax.php";
+		( function() {
+			var init, id, $wrap;
+
+			if ( typeof tinymce !== 'undefined' ) {
+				if ( tinymce.Env.ie && tinymce.Env.ie < 11 ) {
+					tinymce.$( '.wp-editor-wrap ' ).removeClass( 'tmce-active' ).addClass( 'html-active' );
+					return;
+				}
+
+				for ( id in tinyMCEPreInit.mceInit ) {
+					init = tinyMCEPreInit.mceInit[id];
+					$wrap = tinymce.$( '#wp-' + id + '-wrap' );
+
+					if ( ( $wrap.hasClass( 'tmce-active' ) || ! tinyMCEPreInit.qtInit.hasOwnProperty( id ) ) && ! init.wp_skip_init ) {
+						tinymce.init( init );
+
+						if ( ! window.wpActiveEditor ) {
+							window.wpActiveEditor = id;
+						}
+					}
+				}
+			}
+
+			if ( typeof quicktags !== 'undefined' ) {
+				for ( id in tinyMCEPreInit.qtInit ) {
+					quicktags( tinyMCEPreInit.qtInit[id] );
+
+					if ( ! window.wpActiveEditor ) {
+						window.wpActiveEditor = id;
+					}
+				}
+			}
+		}());
+		</script>
+				<div id="wp-link-backdrop" style="display: none"></div>
+		<div id="wp-link-wrap" class="wp-core-ui" style="display: none" role="dialog" aria-labelledby="link-modal-title">
+		<form id="wp-link" tabindex="-1">
+		<input type="hidden" id="_ajax_linking_nonce" name="_ajax_linking_nonce" value="d8f8830c96" />		<h3 id="link-modal-title">Insert/edit link</h3>
+		<button type="button" id="wp-link-close"><span class="screen-reader-text">Close</span></button>
+		<div id="link-selector">
+			<div id="link-options">
+				<p class="howto" id="wplink-enter-url">Enter the destination URL</p>
+				<div>
+					<label><span>URL</span>
+					<input id="wp-link-url" type="text" aria-describedby="wplink-enter-url" /></label>
+				</div>
+				<div class="wp-link-text-field">
+					<label><span>Link Text</span>
+					<input id="wp-link-text" type="text" /></label>
+				</div>
+				<div class="link-target">
+					<label><span></span>
+					<input type="checkbox" id="wp-link-target" /> Open link in a new tab</label>
+				</div>
+			</div>
+			<p class="howto" id="wplink-link-existing-content">Or link to existing content</p>
+			<div id="search-panel">
+				<div class="link-search-wrapper">
+					<label>
+						<span class="search-label">Search</span>
+						<input type="search" id="wp-link-search" class="link-search-field" autocomplete="off" aria-describedby="wplink-link-existing-content" />
+						<span class="spinner"></span>
+					</label>
+				</div>
+				<div id="search-results" class="query-results" tabindex="0">
+					<ul></ul>
+					<div class="river-waiting">
+						<span class="spinner"></span>
+					</div>
+				</div>
+				<div id="most-recent-results" class="query-results" tabindex="0">
+					<div class="query-notice" id="query-notice-message">
+						<em class="query-notice-default">No search term specified. Showing recent items.</em>
+						<em class="query-notice-hint screen-reader-text">Search or use up and down arrow keys to select an item.</em>
+					</div>
+					<ul></ul>
+					<div class="river-waiting">
+						<span class="spinner"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="submitbox">
+			<div id="wp-link-cancel">
+				<button type="button" class="button">Cancel</button>
+			</div>
+			<div id="wp-link-update">
+				<input type="submit" value="Add Link" class="button button-primary" id="wp-link-submit" name="wp-link-submit">
+			</div>
+		</div>
+		</form>
+		</div>
+		<script type="text/javascript">jQuery(window).on("load", function() {tinymce.codesampleplugin.Prism.highlightAll();});</script><script type='text/javascript'>_satellite.pageBottom();</script>        </div> <!-- .page-wrapper -->
+    </body>
+</html>
+
