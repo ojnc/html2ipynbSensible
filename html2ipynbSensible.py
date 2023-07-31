@@ -2,7 +2,7 @@ import re
 import datetime
 import time
 import sys
-import re
+
 from urllib.request import urlopen
 import html2text
 # https://fossies.org/linux/html2text/docs/usage.md
@@ -50,7 +50,11 @@ def convert(script_name):
     with open(script_name,"r",encoding="utf-8") as f:
         markdown_cell = ''
         code_cell = ''
+        kernelspec=dict(display_name= "Python 3", 
+                        language= "python", 
+                        name= "python3",)
         nb = nbformat.v4.new_notebook()
+        nb.metadata['kernelspec'] = kernelspec
         for line in f:
             if str_starts_with(line, ACCEPTED_CHARS):
                 code_cell = new_cell(nb, code_cell)
@@ -72,12 +76,12 @@ def convert(script_name):
 
 ##################### py2nb  FINIS ###################
 
-def downLoad(): 
+def downLoad(myURL,prefix): 
 
   # orih=open("kpHTML.txt","w",encoding="utf-8")
-  outh=open("myHTML.txt","w",encoding="utf-8") 
+  outh=open(prefix+"HTML.txt","w",encoding="utf-8") 
 
-  with urlopen('https://blogs.sap.com/2020/07/27/hands-on-tutorial-automated-predictive-apl-in-sap-hana-cloud/') as response:
+  with urlopen(myURL) as response:
     print("result code: " + str(response.getcode()))
     html_content = response.read()
     encoding = response.headers.get_content_charset('utf-8')
@@ -88,9 +92,9 @@ def downLoad():
   print(html_text,file=outh,flush=True)
   outh.close()
 
-  inph=open("myHTML.txt","r",encoding="utf-8")
-  orih=open("kpTEXT.txt","w",encoding="utf-8")
-  outh=open("myTEXT.py","w",encoding="utf-8") 
+  inph=open(prefix+"HTML.txt","r",encoding="utf-8")
+  orih=open(prefix+"KEEP1.txt","w",encoding="utf-8") 
+  outh=open(prefix+"FINAL.py","w",encoding="utf-8") 
 
   html=inph.read()
 
@@ -151,7 +155,7 @@ def downLoad():
   outh.close()
   inph.close()
 
-  convert("myTEXT.py")
+  convert(prefix+"FINAL.py")
 
 
   outh.close()
@@ -164,7 +168,11 @@ if __name__ == '__main__':
 
   start_time = time.time()
 
-  downLoad()
+  if len(sys.argv) !=3:
+    print("Invoke as: python html2ipynbSensible.py URL PREFIX\n",file=sys.stderr,flush=True)
+    exit(1)
+
+  downLoad(sys.argv[1],sys.argv[2]) ## URL PREFIX
 
   print("\n%s Jai Hind! %5.2f seconds --- \n"
         % (time.strftime("%Y-%m-%d %H:%M"),(time.time() - start_time)),file=sys.stderr,flush=True)
