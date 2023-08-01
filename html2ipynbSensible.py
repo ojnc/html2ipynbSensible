@@ -3,7 +3,7 @@ import datetime
 import time
 import sys
 
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 import html2text
 # https://fossies.org/linux/html2text/docs/usage.md
 
@@ -80,8 +80,9 @@ def downLoad(myURL,prefix):
 
   # orih=open("kpHTML.txt","w",encoding="utf-8")
   outh=open(prefix+"HTML.txt","w",encoding="utf-8") 
+  request_site = Request(myURL, headers={"User-Agent": "Mozilla/5.0"})
 
-  with urlopen(myURL) as response:
+  with urlopen(request_site) as response:
     print("result code: " + str(response.getcode()))
     html_content = response.read()
     encoding = response.headers.get_content_charset('utf-8')
